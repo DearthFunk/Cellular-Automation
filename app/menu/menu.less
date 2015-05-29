@@ -1,0 +1,64 @@
+@menuBlue: #5050FF;
+@borderColor: #FFFFFF;
+@menuGrey: #999999;
+
+div.menuContainer {
+    color: #FFFFFF;
+    position: absolute;
+    right: -1px;
+    padding: 0 10px;
+    border-left: 3px solid white;
+    background-color: rgba(0,0,0,0.8);
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 2;
+	overflow-y: scroll;
+	> div.clearButton {
+		font-size: 20px;
+		text-align: center;
+		border: 3px solid white;
+		margin: 5px 0;
+		padding: 5px 0;
+		cursor: pointer;
+		&:hover {
+			background-color: @menuGrey;
+		}
+	}
+	> div.growthTypeContainers {
+		border-bottom: 3px solid @borderColor;
+		padding: 5px;
+		text-align: center;
+		> div.growthType {
+			display: inline-block;
+			margin: 5px;
+			cursor: pointer;
+			border: 1px solid @borderColor;
+			background-color: @menuGrey;
+			width: 20px;
+			height: 20px;
+			&.active {
+				background-color: @menuBlue;
+			}
+		}
+	}
+	> div.directionalControls {
+		margin-top: 10px;
+		> i {
+			font-size: 16px;
+			padding: 4px;
+			cursor: pointer;
+			margin: 2px;
+			&:hover {
+				background-color: rgba(100,100,100,0.3);
+			}
+			&.true {
+				color: @menuBlue;
+			}
+			&.rotate {
+				transform:rotate(41deg);
+			}
+		}
+	}
+}

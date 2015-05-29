@@ -1,0 +1,30 @@
+<div class="menuContainer verticalScrollBarLight" data-ng-style="{width: MENU_SIZE + 'px'}">
+	<div class="clearButton" data-ng-click="clearGrid()">CLEAR GRID</div>
+	<div class="clearButton" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing ? 'PAUSE' : 'PLAY'}}</div>
+	<div class="clearButton" data-ng-click="menuService.borders = !menuService.borders">{{menuService.borders ? 'ShowBorders' : 'hideBorders'}}</div>
+
+
+	<div class="growthTypeContainers">
+		<div class="growthType"
+		     data-ng-repeat="item in menuService.growthTypes"
+		     data-ng-class="{active: item == menuService.activeGrowthType}"
+		     data-ng-click="menuService.activeGrowthType = item"
+			></div>
+	</div>
+	<div class="directionalControls" data-ng-show="menuService.activeGrowthType == menuService.growthTypes[0]">
+		<i data-ng-repeat="(key, item) in menuService.automataPattern | orderBy:'order'"
+		   data-ng-click="item.val = !item.val"
+		   class="fa {{item.val}}"
+		   data-ng-class="item.class"></i>
+	</div>
+	<div slider
+	     data-fixed-value="0"
+	     data-slider-value="menuService.animationSpeed"
+	     data-min-value="1"
+	     data-max-value="10">
+	</div>
+
+	<div class="clearButton" data-ng-click="loadImageFile()">UPLOAD</div>
+	<input type="file" id="inputFileToLoad">
+
+</div>
