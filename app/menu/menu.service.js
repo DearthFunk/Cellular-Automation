@@ -10,6 +10,8 @@
 	function menuService() {
 
 		var service = {
+			colorOne: '#FF0000',
+			colorTwo: '#0000FF',
 			animationSpeed: 5,
 			playing: false,
 			borders: false,

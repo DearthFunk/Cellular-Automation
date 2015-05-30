@@ -2,6 +2,7 @@
 	<div class="clearButton" data-ng-click="clearGrid()">CLEAR GRID</div>
 	<div class="clearButton" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing ? 'PAUSE' : 'PLAY'}}</div>
 	<div class="clearButton" data-ng-click="menuService.borders = !menuService.borders">{{menuService.borders ? 'ShowBorders' : 'hideBorders'}}</div>
+	<div class="clearButton" data-ng-click="loadImageFile()">UPLOAD</div>
 
 
 	<div class="growthTypeContainers">
@@ -23,8 +24,9 @@
 	     data-min-value="1"
 	     data-max-value="10">
 	</div>
+	<input type="color" class="colorPicker" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne">
+	<input type="color" class="colorPicker" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
 
-	<div class="clearButton" data-ng-click="loadImageFile()">UPLOAD</div>
-	<input type="file" id="inputFileToLoad">
+
 
 </div>

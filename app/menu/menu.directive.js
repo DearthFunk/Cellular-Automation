@@ -25,6 +25,7 @@
 		$scope.menuService = menuService;
 		$scope.clearGrid = clearGrid;
 		$scope.loadImageFile = loadImageFile;
+		$scope.recalculateColors = recalculateColors;
 
 		var fileUploader = document.createElement('input');
 		fileUploader.type = 'file';
@@ -35,7 +36,9 @@
 		function clearGrid() {
 			$rootScope.$broadcast('clearGridEvent');
 		}
-
+		function recalculateColors() {
+			$rootScope.$broadcast('calculateColorsEvent');
+		}
 		function loadImageFile() {
 			fileUploader.click();
 		}
