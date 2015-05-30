@@ -22,11 +22,14 @@
 		var prom;
 		var w = 0;
 		var h = 0;
+		var cellsW = 0;
+		var cellsH = 0;
+
 		var automata = [];
 		var automataSquareSize = 15;
 		var automataTimer = 0;
-		var automataActiveX = -1;
-		var automataActiveY = -1;
+		var lastXpos = -1;
+		var lastYpos = -1;
 		var automataColors = [];
 
 
@@ -98,15 +101,15 @@
 			prom = $timeout(timer, 20);
 		}
 		function mouseDownEvent(e) {
-			$element.bind('mouseup', mouseUpEvent);
-			$element.bind('mousemove', mouseMoveEvent);
+			angular.element($window).bind('mouseup', mouseUpEvent);
+			angular.element($window).bind('mousemove', mouseMoveEvent);
 			mouseMoveEvent(e);
 		}
 		function mouseUpEvent(e) {
-			$element.unbind('mouseup', mouseUpEvent);
-			$element.unbind('mousemove', mouseMoveEvent);
-			automataActiveX = -1;
-			automataActiveY = -1;
+			angular.element($window).unbind('mouseup', mouseUpEvent);
+			angular.element($window).unbind('mousemove', mouseMoveEvent);
+			lastXpos = -1;
+			lastYpos = -1;
 		}
 
 		function windowResize() {
@@ -119,27 +122,27 @@
 		}
 
 		function init() {
-			for (var y = 0; y < h; y+=automataSquareSize) {
+			for (var y = -automataSquareSize; y < h+automataSquareSize; y+=automataSquareSize) {
 				var xArray = [];
-				for (var x = 0; x < w; x+=automataSquareSize) {
+				for (var x = -automataSquareSize; x < w+automataSquareSize; x+=automataSquareSize) {
 					xArray.push({x: x,y: y, active: false})
 				}
 				automata.push(xArray);
 			}
+			cellsH = automata.length - 2;
+			cellsW = automata[0].length - 2;
 			calculateColorsEvent();
 		}
 
 		function mouseMoveEvent(e) {
-			var x = Math.floor(e.clientX / automataSquareSize);
-			var y = Math.floor(e.clientY / automataSquareSize);
+			var x = Math.floor(e.clientX / automataSquareSize) + 1;
+			var y = Math.floor(e.clientY / automataSquareSize) + 1;
 
-			if (x !== automataActiveX || y !== automataActiveY) {
-				automataActiveX = x;
-				automataActiveY = y;
-				if (automataActiveY != -1 && angular.isDefined(automata[automataActiveY])) {
-					if (automataActiveX != -1 && angular.isDefined(automata[automataActiveY][automataActiveX])) {
-						automata[automataActiveY][automataActiveX].active = !automata[automataActiveY][automataActiveX].active;
-					}
+			if((x != lastXpos || y != lastYpos)) {
+				if (x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
+					lastXpos = x;
+					lastYpos = y;
+					toggle(automata[y][x]);
 				}
 			}
 		}
@@ -147,15 +150,15 @@
 		function toggle(item) {
 			item.active = !item.active;
 		}
+
 		function drawGrid() {
 			ctx.clearRect(0,0,w,h);
-
-			for (var y = 0; y < automata.length; y++) {
-				for (var x = 0; x < automata[y].length; x++) {
+			for (var y = 1; y < automata.length-1; y++) {
+				for (var x = 1; x < automata[y].length-1; x++) {
 					var cell = automata[y][x];
-					ctx.fillStyle = automataColors[x];
 					if (cell.active) {
 						ctx.beginPath();
+						ctx.fillStyle = automataColors[x];
 						ctx.rect(cell.x,cell.y,automataSquareSize,automataSquareSize);
 						if (menuService.borders) {
 							ctx.lineWidth = 2;
@@ -201,24 +204,20 @@
 				}
 			}
 		}
-		var wide = 0;
-		var high = 0;
 		function automata1() {
 			var newA = angular.copy(automata);
-			for (var y = 0; y < automata.length; y++) {
-				for (var x = 0; x < automata[y].length; x++) {
+			for (var y = 1; y < automata.length-1; y++) {
+				for (var x = 1; x < automata[y].length-1; x++) {
 					if (automata[y][x].active) {
 						toggle(newA[y][x]);
-						var wide = newA[y].length;
-						var high = newA.length;
-						if(menuService.automataPattern.l.val)  {if (x-1 > -1)               {toggle(newA[y][x-1]) }}       //left
-						if(menuService.automataPattern.t.val)  {if (y-1 > -1)               {toggle(newA[y-1][x]) }}       //top
-						if(menuService.automataPattern.r.val)  {if (x+1 < wide)             {toggle(newA[y][x+1]) }}       //right
-						if(menuService.automataPattern.b.val)  {if (y+1 < high)             {toggle(newA[y+1][x]) }}       //bottom
-						if(menuService.automataPattern.tr.val) {if (x+1 < wide && y-1 > -1) {toggle(newA[y-1][x+1]) }}   //top-right
-						if(menuService.automataPattern.br.val) {if (x+1 < wide && y+1<high) {toggle(newA[y+1][x+1]) }}   //bottom-right
-						if(menuService.automataPattern.tl.val) {if (x-1 > -1 && y-1 > -1)   {toggle(newA[y-1][x-1]) }}   //top-left
-						if(menuService.automataPattern.bl.val) {if (x-1 > -1 && y+1 < high) {toggle(newA[y+1][x-1]) }}   //bottom-left
+						if(menuService.automataPattern.l.val)  {toggle(newA[y][x-1]) }       //left
+						if(menuService.automataPattern.t.val)  {toggle(newA[y-1][x]) }       //top
+						if(menuService.automataPattern.r.val)  {toggle(newA[y][x+1]) }       //right
+						if(menuService.automataPattern.b.val)  {toggle(newA[y+1][x]) }       //bottom
+						if(menuService.automataPattern.tr.val) {toggle(newA[y-1][x+1]) }   //top-right
+						if(menuService.automataPattern.br.val) {toggle(newA[y+1][x+1]) }   //bottom-right
+						if(menuService.automataPattern.tl.val) {toggle(newA[y-1][x-1]) }   //top-left
+						if(menuService.automataPattern.bl.val) {toggle(newA[y+1][x-1]) }   //bottom-left
 					}
 				}
 			}

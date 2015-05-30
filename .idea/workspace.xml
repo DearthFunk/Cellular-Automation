@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="44d92f55-05c3-49ad-9156-d78fcd467608" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/board/board.directive.js" afterPath="$PROJECT_DIR$/app/board/board.directive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/menu/menu.directive.js" afterPath="$PROJECT_DIR$/app/menu/menu.directive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/menu/menu.html" afterPath="$PROJECT_DIR$/app/menu/menu.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/menu/menu.service.js" afterPath="$PROJECT_DIR$/app/menu/menu.service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="life.iws" />
@@ -74,8 +70,8 @@
       <file leaf-file-name="board.directive.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/board/board.directive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.51799345" vertical-offset="1565" max-vertical-offset="3995">
-              <caret line="120" column="25" selection-start-line="120" selection-start-column="25" selection-end-line="120" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.8856172" vertical-offset="3026" max-vertical-offset="3978">
+              <caret line="224" column="9" selection-start-line="224" selection-start-column="9" selection-end-line="224" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -395,12 +391,20 @@
       <option name="number" value="Default" />
       <updated>1432784257692</updated>
     </task>
+    <task id="LOCAL-00001" summary="pre offset switch&#10;">
+      <created>1432956340855</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1432956340855</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-9" width="1864" height="1098" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -436,6 +440,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="pre offset switch&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="pre offset switch&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -758,14 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/elements/slider/slider.directive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1802">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/menu/menu.directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="1122">
@@ -790,10 +788,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/elements/slider/slider.directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="1802">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/board/board.directive.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51799345" vertical-offset="1565" max-vertical-offset="3995">
-          <caret line="120" column="25" selection-start-line="120" selection-start-column="25" selection-end-line="120" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.8856172" vertical-offset="3026" max-vertical-offset="3978">
+          <caret line="224" column="9" selection-start-line="224" selection-start-column="9" selection-end-line="224" selection-end-column="9" />
           <folding />
         </state>
       </provider>
