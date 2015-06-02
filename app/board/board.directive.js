@@ -203,9 +203,9 @@
 				for (var x = 1; x < newGrid[y].length-1; x++) {
 					var count = surroundingCellCount(x, y);
 					if (automata[y][x].active) {
-						newGrid[y][x].active = menuService.activeGrowthType.stayAlive.indexOf(count) > -1;
+						newGrid[y][x].active = menuService.activeGrowthType.activeRule.stayAlive.indexOf(count) > -1;
 					}
-					else if (menuService.activeGrowthType.birth.indexOf(count) > -1) {
+					else if (menuService.activeGrowthType.activeRule.birth.indexOf(count) > -1) {
 						newGrid[y][x].active = true;
 					}
 				}

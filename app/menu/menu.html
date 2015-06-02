@@ -21,21 +21,25 @@
 			data-ng-class="item.class"></i>
 	</div>
 	<div class="typeControls" data-ng-show="menuService.activeGrowthType.index == 1">
-
-		<span>BIRTH</span>
-		<span data-ng-repeat="item in menuService.birthOptions">
-		<input type="checkbox"
-	       checklist-model="menuService.growthTypes[1].birth"
-	       data-checklist-value="item.id">
-		</span>
-		={{menuService.activeGrowthType.birth}}=
-		<br>
-		<span>STAY ALIVE</span>
-		<span data-ng-repeat="item in menuService.stayAliveOptions">
-		<input type="checkbox"
-		       checklist-model="menuService.growthTypes[1].stayAlive"
-		       data-checklist-value="item.id">
-		</span>
+		<div>
+			<span>BIRTH</span>
+			<span data-ng-repeat="item in menuService.birthOptions">
+			<input type="checkbox"
+			       checklist-model="menuService.activeGrowthType.activeRule.birth"
+			       data-checklist-value="item.id">
+			</span>
+			<br>
+			<span>STAY ALIVE</span>
+			<span data-ng-repeat="item in menuService.stayAliveOptions">
+			<input type="checkbox"
+			       checklist-model="menuService.activeGrowthType.activeRule.stayAlive"
+			       data-checklist-value="item.id">
+			</span>
+		</div>
+		<div class="ruleType"
+		     data-ng-repeat="rule in menuService.activeGrowthType.rulesTemplates"
+		     data-ng-click="menuService.activeGrowthType.activeRule = rule">{{rule.name}}
+		</div>
 
 	</div>
 
