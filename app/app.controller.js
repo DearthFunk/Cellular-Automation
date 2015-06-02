@@ -6,7 +6,8 @@
 			'boardModule',
 			'menuModule',
 			'genColorsServiceModule',
-			'menuServiceModule'
+			'menuServiceModule',
+			'checklist-model'
 		])
 		.constant('MENU_SIZE', 220)
 		.controller('lifeController', lifeController);

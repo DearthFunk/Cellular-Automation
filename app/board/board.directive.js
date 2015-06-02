@@ -121,14 +121,20 @@
 			ctx.canvas.height = h;
 		}
 
-		function init() {
+		function newEmptyGrid() {
+			var grid = [];
 			for (var y = -automataSquareSize; y < h+automataSquareSize; y+=automataSquareSize) {
 				var xArray = [];
 				for (var x = -automataSquareSize; x < w+automataSquareSize; x+=automataSquareSize) {
 					xArray.push({x: x,y: y, active: false})
 				}
-				automata.push(xArray);
+				grid.push(xArray);
 			}
+			return grid;
+		}
+
+		function init() {
+			automata = newEmptyGrid();
 			cellsH = automata.length - 2;
 			cellsW = automata[0].length - 2;
 			calculateColorsEvent();
@@ -183,26 +189,28 @@
 		}
 		function surroundingCellCount(x,y) {
 			var count = 0;
-			if (x-1 > -1) {count += automata[y][x-1].active ? 1 : 0; }
-			if (y-1 > -1) {count += automata[y-1][x].active ? 1 : 0; }
-			count += automata[y][x+1].active ? 1 : 0;
-			count += automata[y+1][x].active ? 1 : 0;
-
-			count += automata[y-1][x+1].active ? 1 : 0;
-			count += automata[y+1][x+1].active ? 1 : 0;
-			count += automata[y-1][x-1].active ? 1 : 0;
-			count += automata[y+1][x-1].active ? 1 : 0;
-
+			for (var i = 0; i < menuService.surroundingCell.length; i++) {
+				var surroundingCell = menuService.surroundingCell[i];
+				if (automata[y + surroundingCell.y][x + surroundingCell.x].active && 'val' in surroundingCell) {
+					count++;
+				}
+			}
 			return count;
 		}
 		function automata2() {
-			var newA = angular.copy(automata);
-			for (var y = 0; y < automata.length; y++) {
-				for (var x = 0; x < automata[y].length; x++) {
+			var newGrid = newEmptyGrid();
+			for (var y = 1; y < newGrid.length-1; y++) {
+				for (var x = 1; x < newGrid[y].length-1; x++) {
 					var count = surroundingCellCount(x, y);
-
+					if (automata[y][x].active) {
+						newGrid[y][x].active = menuService.activeGrowthType.stayAlive.indexOf(count) > -1;
+					}
+					else if (menuService.activeGrowthType.birth.indexOf(count) > -1) {
+						newGrid[y][x].active = true;
+					}
 				}
 			}
+			automata = angular.copy(newGrid);
 		}
 		function automata1() {
 			var newA = angular.copy(automata);
@@ -210,14 +218,12 @@
 				for (var x = 1; x < automata[y].length-1; x++) {
 					if (automata[y][x].active) {
 						toggle(newA[y][x]);
-						if(menuService.automataPattern.l.val)  {toggle(newA[y][x-1]) }       //left
-						if(menuService.automataPattern.t.val)  {toggle(newA[y-1][x]) }       //top
-						if(menuService.automataPattern.r.val)  {toggle(newA[y][x+1]) }       //right
-						if(menuService.automataPattern.b.val)  {toggle(newA[y+1][x]) }       //bottom
-						if(menuService.automataPattern.tr.val) {toggle(newA[y-1][x+1]) }   //top-right
-						if(menuService.automataPattern.br.val) {toggle(newA[y+1][x+1]) }   //bottom-right
-						if(menuService.automataPattern.tl.val) {toggle(newA[y-1][x-1]) }   //top-left
-						if(menuService.automataPattern.bl.val) {toggle(newA[y+1][x-1]) }   //bottom-left
+						for (var i = 0; i < menuService.surroundingCell.length; i++) {
+							var surroundingCell = menuService.surroundingCell[i];
+							if (surroundingCell.val) {
+								toggle(newA[y + surroundingCell.y][x + surroundingCell.x])
+							}
+						}
 					}
 				}
 			}
