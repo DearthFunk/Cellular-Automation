@@ -8,7 +8,7 @@
 
 	function menu() {
 		var directive = {
-			restrict: 'C',
+			restrict: 'A',
 			templateUrl: 'app/menu/menu.html',
 			replace: true,
 			controller: menuController,
@@ -17,15 +17,18 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', 'MENU_SIZE', 'menuService'];
+	menuController.$inject = ['$scope', '$rootScope', 'MENU_SIZE', 'RULE_TEMPLATES', 'menuService'];
 
-	function menuController($scope, $rootScope, MENU_SIZE, menuService) {
+	function menuController($scope, $rootScope, MENU_SIZE, RULE_TEMPLATES, menuService) {
 
 		$scope.MENU_SIZE = MENU_SIZE;
+		$scope.RULE_TEMPLATES = RULE_TEMPLATES;
 		$scope.menuService = menuService;
 		$scope.clearGrid = clearGrid;
 		$scope.loadImageFile = loadImageFile;
+		$scope.loadRule = loadRule;
 		$scope.recalculateColors = recalculateColors;
+
 
 		var fileUploader = document.createElement('input');
 		fileUploader.type = 'file';
@@ -33,6 +36,11 @@
 
 		///////////////////////////////////////////////////
 
+		function loadRule(rule) {
+			menuService.activeGrowthType.stayAlive = angular.copy(rule.stayAlive);
+			menuService.activeGrowthType.birth = angular.copy(rule.birth);
+
+		}
 		function clearGrid() {
 			$rootScope.$broadcast('clearGridEvent');
 		}

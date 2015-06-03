@@ -13,42 +13,49 @@
 			></div>
 
 	</div>
-	<div class="directionalControls" data-ng-show="menuService.activeGrowthType.index == 0">
-		<i data-ng-if="item.class"
-			data-ng-repeat="item in menuService.surroundingCell"
-			data-ng-click="item.val = !item.val"
-			class="fa {{item.val}}"
-			data-ng-class="item.class"></i>
+	<div class="directionalControls" data-ng-if="menuService.activeGrowthType.index == 0">
+		<div cell-activator
+		     data-cells="[1,2,3,4,6,7,8,9]"
+		     data-return-array="menuService.activeGrowthType.activatedCells">
+		</div>
 	</div>
 	<div class="typeControls" data-ng-show="menuService.activeGrowthType.index == 1">
-		<div>
-			<span>BIRTH</span>
+		<div class="birthStayAliveContainer">
+			<span class="title">BIRTH</span>
 			<span data-ng-repeat="item in menuService.birthOptions">
 			<input type="checkbox"
 			       checklist-model="menuService.activeGrowthType.activeRule.birth"
 			       data-checklist-value="item.id">
 			</span>
 			<br>
-			<span>STAY ALIVE</span>
+			<span class="title">STAY ALIVE</span>
 			<span data-ng-repeat="item in menuService.stayAliveOptions">
 			<input type="checkbox"
 			       checklist-model="menuService.activeGrowthType.activeRule.stayAlive"
 			       data-checklist-value="item.id">
 			</span>
 		</div>
+		<div cell-activator
+		     data-cells="[1,2,3,4,6,7,8,9]"
+		     data-return-array="menuService.activeGrowthType.stayAlive">
+		</div>
+		<div cell-activator
+		     data-cells="[1,2,3,4,6,7,8,9]"
+		     data-return-array="menuService.activeGrowthType.birth">
+		</div>
 		<div class="ruleType"
-		     data-ng-repeat="rule in menuService.activeGrowthType.rulesTemplates"
-		     data-ng-click="menuService.activeGrowthType.activeRule = rule">{{rule.name}}
+		     data-ng-repeat="rule in RULE_TEMPLATES"
+		     data-ng-click="loadRule(rule)">{{rule.name}}
 		</div>
 
 	</div>
 
 
 	<div slider
-	     data-fixed-value="0"
+	     data-fixed-value="10"
 	     data-slider-value="menuService.animationSpeed"
 	     data-min-value="1"
-	     data-max-value="10">
+	     data-max-value="3">
 	</div>
 	<input type="color" class="colorPicker" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne">
 	<input type="color" class="colorPicker" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">

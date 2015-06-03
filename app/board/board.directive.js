@@ -31,6 +31,18 @@
 		var lastXpos = -1;
 		var lastYpos = -1;
 		var automataColors = [];
+		var surroundingCells = [
+			{y:-1, x:-1},
+			{y:-1, x: 0},
+			{y:-1, x: 1},
+			{y: 0, x:-1},
+			{y: 0, x: 0},
+			{y: 0, x: 1},
+			{y: 1, x:-1},
+			{y: 1, x: 0},
+			{y: 1, x: 1}
+		];
+
 
 
 
@@ -178,6 +190,7 @@
 
 			if (menuService.playing) {
 				automataTimer++;
+
 				if (automataTimer % menuService.animationSpeed == 0) {
 					switch (menuService.activeGrowthType.index) {
 						case 0 : automata1(); break;
@@ -189,25 +202,29 @@
 		}
 		function surroundingCellCount(x,y) {
 			var count = 0;
-			for (var i = 0; i < menuService.surroundingCell.length; i++) {
-				var surroundingCell = menuService.surroundingCell[i];
-				if (automata[y + surroundingCell.y][x + surroundingCell.x].active && 'val' in surroundingCell) {
+			for (var i = 0; i < surroundingCells.length; i++) {
+				var surroundingCell = surroundingCells[i];
+				if (automata[y + surroundingCell.y][x + surroundingCell.x].active) {
 					count++;
 				}
 			}
-			return count;
+			return count < 0 ? 0 : count;
 		}
 		function automata2() {
 			var newGrid = newEmptyGrid();
 			for (var y = 1; y < newGrid.length-1; y++) {
 				for (var x = 1; x < newGrid[y].length-1; x++) {
 					var count = surroundingCellCount(x, y);
+					console.log(count);
+					if (automata[y][x].active) {newGrid[y][x].active = true;}
+
+					/*
 					if (automata[y][x].active) {
-						newGrid[y][x].active = menuService.activeGrowthType.activeRule.stayAlive.indexOf(count) > -1;
+						newGrid[y][x].active = menuService.activeGrowthType.stayAlive.indexOf(count) > -1;
 					}
-					else if (menuService.activeGrowthType.activeRule.birth.indexOf(count) > -1) {
+					else if (menuService.activeGrowthType.birth.indexOf(count) > -1) {
 						newGrid[y][x].active = true;
-					}
+					}*/
 				}
 			}
 			automata = angular.copy(newGrid);
@@ -218,11 +235,11 @@
 				for (var x = 1; x < automata[y].length-1; x++) {
 					if (automata[y][x].active) {
 						toggle(newA[y][x]);
-						for (var i = 0; i < menuService.surroundingCell.length; i++) {
-							var surroundingCell = menuService.surroundingCell[i];
-							if (surroundingCell.val) {
-								toggle(newA[y + surroundingCell.y][x + surroundingCell.x])
-							}
+						for (var i = 0; i < menuService.activeGrowthType.activatedCells.length; i++) {
+
+							var index = menuService.activeGrowthType.activatedCells[i];
+							var surroundingCell = surroundingCells[index-1];
+							toggle(newA[y + surroundingCell.y][x + surroundingCell.x]);
 						}
 					}
 				}

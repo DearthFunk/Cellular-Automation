@@ -1,6 +1,7 @@
 @menuBlue: #5050FF;
 @borderColor: #FFFFFF;
 @menuGrey: #999999;
+@menuGreen: #50FF50;
 
 div.menuContainer {
     color: #FFFFFF;
@@ -45,19 +46,26 @@ div.menuContainer {
 	}
 	> div.directionalControls {
 		margin-top: 10px;
-		> i {
-			font-size: 16px;
-			padding: 4px;
+
+	}
+	>div.typeControls {
+
+		> div.birthStayAliveContainer {
+			> span {
+				display: inline;
+				&.title {
+					font-weight: bold;
+				}
+			}
+			> input {
+				width: 10px;
+				height: 10px;
+			}
+		}
+		> div.ruleType {
 			cursor: pointer;
-			margin: 2px;
 			&:hover {
-				background-color: rgba(100,100,100,0.3);
-			}
-			&.true {
-				color: @menuBlue;
-			}
-			&.rotate {
-				transform:rotate(41deg);
+				background-color: @menuGrey;
 			}
 		}
 	}

@@ -9,6 +9,7 @@
 	<!-- DIRECTIVES -->
 	<script type="text/javascript" src="app/directives/html.directive.js"></script>
 	<script type="text/javascript" src="app/directives/checklist.js"></script>
+	<script type="text/javascript" src="app/directives/cellActivator/cellActivator.directive.js"></script>
 
 	<!-- SERVICES -->
 	<script type="text/javascript" src="app/services/genColors.service.js"></script>
@@ -23,13 +24,12 @@
 
 	<!-- STYLE -->
 	<link rel="stylesheet/less" href="app/app.less">
-	<link rel="stylesheet" href="lib/font-awesome.css">
 	<script type="text/javascript" src="lib/less.js"></script>
 
 </head>
 <body data-ng-controller="lifeController">
 	<canvas board-directive class="pinTopLeft"></canvas>
-	<div class="menu"></div>
+	<div menu></div>
 
 </body>
 </html>
