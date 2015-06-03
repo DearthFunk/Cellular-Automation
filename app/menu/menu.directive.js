@@ -28,6 +28,7 @@
 		$scope.loadImageFile = loadImageFile;
 		$scope.loadRule = loadRule;
 		$scope.recalculateColors = recalculateColors;
+		$scope.drawStep = drawStep;
 
 
 		var fileUploader = document.createElement('input');
@@ -36,6 +37,10 @@
 
 		///////////////////////////////////////////////////
 
+		function drawStep() {
+			console.log('broadcast');
+			$rootScope.$broadcast('drawStepEvent');
+		}
 		function loadRule(rule) {
 			menuService.activeGrowthType.stayAlive = angular.copy(rule.stayAlive);
 			menuService.activeGrowthType.birth = angular.copy(rule.birth);

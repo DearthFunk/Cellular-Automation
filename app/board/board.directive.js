@@ -51,6 +51,7 @@
 		$element.bind('mousedown', mouseDownEvent);
 		$scope.$on('imageLoadEvent', imageLoadEvent);
 		$scope.$on('calculateColorsEvent', calculateColorsEvent);
+		$scope.$on('drawStepEvent', drawStep);
 
 		windowResize();
 		init();
@@ -102,11 +103,7 @@
 		}
 
 		function clearGrid() {
-			for (var y = 0; y < automata.length; y++) {
-				for (var x = 0; x < automata[y].length; x++) {
-					automata[y][x].active = false;
-				}
-			}
+			automata = newEmptyGrid();
 		}
 		function timer() {
 			drawGrid();
@@ -138,7 +135,7 @@
 			for (var y = -automataSquareSize; y < h+automataSquareSize; y+=automataSquareSize) {
 				var xArray = [];
 				for (var x = -automataSquareSize; x < w+automataSquareSize; x+=automataSquareSize) {
-					xArray.push({x: x,y: y, active: false})
+					xArray.push({x: x,y: y, active: false, count: 0})
 				}
 				grid.push(xArray);
 			}
@@ -155,18 +152,33 @@
 		function mouseMoveEvent(e) {
 			var x = Math.floor(e.clientX / automataSquareSize) + 1;
 			var y = Math.floor(e.clientY / automataSquareSize) + 1;
-
 			if((x != lastXpos || y != lastYpos)) {
 				if (x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
 					lastXpos = x;
 					lastYpos = y;
-					toggle(automata[y][x]);
+					toggle(x,y, automata);
 				}
 			}
 		}
 
-		function toggle(item) {
-			item.active = !item.active;
+		function toggle(x,y, theArray) {
+			var cell = theArray[y][x];
+			cell.active = !cell.active;
+			for (var i = 0; i < surroundingCells.length; i++) {
+				if (i !== 4) {
+					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
+					if ( cell.active && surroundingCell.count < 8) {surroundingCell.count++;}
+					if (!cell.active && surroundingCell.count > 0) {surroundingCell.count--;}
+			}
+			}
+		}
+
+		function drawStep() {
+			switch (menuService.activeGrowthType.index) {
+				case 0 : automata1(); break;
+				case 1 : automata2(); break;
+				default : break;
+			}
 		}
 
 		function drawGrid() {
@@ -182,49 +194,38 @@
 							ctx.lineWidth = 2;
 							ctx.stroke();
 						}
+
 						ctx.fill();
 						ctx.closePath();
 					}
+
+					var adjust = automataSquareSize/2;
+					ctx.beginPath();
+					ctx.fillStyle = '#FFFFFF';
+					ctx.fillText(cell.count, cell.x + adjust, cell.y+adjust);
+					ctx.closePath();
 				}
 			}
 
 			if (menuService.playing) {
 				automataTimer++;
-
 				if (automataTimer % menuService.animationSpeed == 0) {
-					switch (menuService.activeGrowthType.index) {
-						case 0 : automata1(); break;
-						case 1 : automata2(); break;
-						default : break;
-					}
+					drawStep();
 				}
 			}
-		}
-		function surroundingCellCount(x,y) {
-			var count = 0;
-			for (var i = 0; i < surroundingCells.length; i++) {
-				var surroundingCell = surroundingCells[i];
-				if (automata[y + surroundingCell.y][x + surroundingCell.x].active) {
-					count++;
-				}
-			}
-			return count < 0 ? 0 : count;
 		}
 		function automata2() {
 			var newGrid = newEmptyGrid();
 			for (var y = 1; y < newGrid.length-1; y++) {
 				for (var x = 1; x < newGrid[y].length-1; x++) {
-					var count = surroundingCellCount(x, y);
-					console.log(count);
-					if (automata[y][x].active) {newGrid[y][x].active = true;}
-
-					/*
+					var count = automata[y][x].count;
 					if (automata[y][x].active) {
+						console.log(x,y,count, menuService.activeGrowthType.stayAlive.indexOf(count) > -1);
 						newGrid[y][x].active = menuService.activeGrowthType.stayAlive.indexOf(count) > -1;
 					}
 					else if (menuService.activeGrowthType.birth.indexOf(count) > -1) {
 						newGrid[y][x].active = true;
-					}*/
+					}
 				}
 			}
 			automata = angular.copy(newGrid);
@@ -234,16 +235,20 @@
 			for (var y = 1; y < automata.length-1; y++) {
 				for (var x = 1; x < automata[y].length-1; x++) {
 					if (automata[y][x].active) {
-						toggle(newA[y][x]);
+						toggle(x,y, newA);
 						for (var i = 0; i < menuService.activeGrowthType.activatedCells.length; i++) {
-
 							var index = menuService.activeGrowthType.activatedCells[i];
-							var surroundingCell = surroundingCells[index-1];
-							toggle(newA[y + surroundingCell.y][x + surroundingCell.x]);
+							var surroundingCellAdjust = surroundingCells[index-1];
+							var xIndex = x + surroundingCellAdjust.x;
+							var yIndex = y + surroundingCellAdjust.y;
+							if (xIndex > 0 && yIndex > 0 && xIndex <= cellsW && yIndex <= cellsH) {
+								toggle(xIndex, yIndex, newA);
+							}
 						}
 					}
 				}
 			}
+
 			automata = angular.copy(newA);
 		}
 
