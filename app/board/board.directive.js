@@ -165,11 +165,11 @@
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
 			for (var i = 0; i < surroundingCells.length; i++) {
-				if (i !== 4) {
+				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
 					if ( cell.active && surroundingCell.count < 8) {surroundingCell.count++;}
 					if (!cell.active && surroundingCell.count > 0) {surroundingCell.count--;}
-			}
+				}
 			}
 		}
 
@@ -194,16 +194,9 @@
 							ctx.lineWidth = 2;
 							ctx.stroke();
 						}
-
 						ctx.fill();
 						ctx.closePath();
 					}
-
-					var adjust = automataSquareSize/2;
-					ctx.beginPath();
-					ctx.fillStyle = '#FFFFFF';
-					ctx.fillText(cell.count, cell.x + adjust, cell.y+adjust);
-					ctx.closePath();
 				}
 			}
 
@@ -220,11 +213,12 @@
 				for (var x = 1; x < newGrid[y].length-1; x++) {
 					var count = automata[y][x].count;
 					if (automata[y][x].active) {
-						console.log(x,y,count, menuService.activeGrowthType.stayAlive.indexOf(count) > -1);
-						newGrid[y][x].active = menuService.activeGrowthType.stayAlive.indexOf(count) > -1;
+						if (newGrid[y][x].active !== menuService.activeGrowthType.stayAlive.indexOf(count) > -1) {
+							toggle(x,y,newGrid);
+						}
 					}
 					else if (menuService.activeGrowthType.birth.indexOf(count) > -1) {
-						newGrid[y][x].active = true;
+						toggle(x,y,newGrid);
 					}
 				}
 			}
@@ -237,10 +231,9 @@
 					if (automata[y][x].active) {
 						toggle(x,y, newA);
 						for (var i = 0; i < menuService.activeGrowthType.activatedCells.length; i++) {
-							var index = menuService.activeGrowthType.activatedCells[i];
-							var surroundingCellAdjust = surroundingCells[index-1];
-							var xIndex = x + surroundingCellAdjust.x;
-							var yIndex = y + surroundingCellAdjust.y;
+							var index = menuService.activeGrowthType.activatedCells[i] - 1;
+							var xIndex = x + surroundingCells[index].x;
+							var yIndex = y + surroundingCells[index].y;
 							if (xIndex > 0 && yIndex > 0 && xIndex <= cellsW && yIndex <= cellsH) {
 								toggle(xIndex, yIndex, newA);
 							}

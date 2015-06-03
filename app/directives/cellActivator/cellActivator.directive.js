@@ -8,11 +8,13 @@
 	function cellActivator() {
 		var directive = {
 			restrict: 'A',
+			replace: true,
 			templateUrl: 'app/directives/cellActivator/cellActivator.html',
 			controller: cellActivatorController,
 			bindToController: true,
 			scope: {
 				cells: "=cells",
+				showLabel: "=showLabel",
 				returnArray: "=returnArray"
 			}
 		};

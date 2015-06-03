@@ -1,9 +1,9 @@
 <div class="menuContainer verticalScrollBarLight" data-ng-style="{width: MENU_SIZE + 'px'}">
-	<div class="clearButton" data-ng-click="clearGrid()">CLEAR GRID</div>
-	<div class="clearButton" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing ? 'PAUSE' : 'PLAY'}}</div>
-	<div class="clearButton" data-ng-click="menuService.borders = !menuService.borders">{{menuService.borders ? 'ShowBorders' : 'hideBorders'}}</div>
-	<div class="clearButton" data-ng-click="loadImageFile()">UPLOAD</div>
-	<div class="clearButton" data-ng-click="drawStep()">STEP</div>
+	<div class="button" data-ng-click="clearGrid()">CLEAR GRID</div>
+	<div class="button" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing ? 'PAUSE' : 'PLAY'}}</div>
+	<div class="button" data-ng-click="menuService.borders = !menuService.borders">{{menuService.borders ? 'ShowBorders' : 'hideBorders'}}</div>
+	<div class="button" data-ng-click="loadImageFile()">UPLOAD</div>
+	<div class="button" data-ng-click="drawStep()">STEP</div>
 
 	<div class="growthTypeContainers">
 		<div class="growthType"
@@ -15,33 +15,26 @@
 	</div>
 	<div class="directionalControls" data-ng-if="menuService.activeGrowthType.index == 0">
 		<div cell-activator
+		     data-show-label="false"
 		     data-cells="[1,2,3,4,6,7,8,9]"
 		     data-return-array="menuService.activeGrowthType.activatedCells">
 		</div>
 	</div>
 	<div class="typeControls" data-ng-show="menuService.activeGrowthType.index == 1">
-		<div class="birthStayAliveContainer">
-			<span class="title">BIRTH</span>
-			<span data-ng-repeat="item in menuService.birthOptions">
-			<input type="checkbox"
-			       checklist-model="menuService.activeGrowthType.activeRule.birth"
-			       data-checklist-value="item.id">
-			</span>
-			<br>
-			<span class="title">STAY ALIVE</span>
-			<span data-ng-repeat="item in menuService.stayAliveOptions">
-			<input type="checkbox"
-			       checklist-model="menuService.activeGrowthType.activeRule.stayAlive"
-			       data-checklist-value="item.id">
-			</span>
-		</div>
-		<div cell-activator
-		     data-cells="[1,2,3,4,6,7,8,9]"
-		     data-return-array="menuService.activeGrowthType.stayAlive">
-		</div>
-		<div cell-activator
-		     data-cells="[1,2,3,4,6,7,8,9]"
-		     data-return-array="menuService.activeGrowthType.birth">
+		<div class="half">
+			<div class="title">STAY ALIVE</div>
+			<div cell-activator
+			     data-show-label="true"
+			     data-cells="[1,2,3,4,6,7,8,9]"
+			     data-return-array="menuService.activeGrowthType.stayAlive">
+			</div>
+		</div><div class="half">
+			<div class="title">BIRTH</div>
+			<div cell-activator
+			     data-show-label="true"
+			     data-cells="[1,2,3,4,6,7,8,9]"
+			     data-return-array="menuService.activeGrowthType.birth">
+			</div>
 		</div>
 		<div class="ruleType"
 		     data-ng-repeat="rule in RULE_TEMPLATES"

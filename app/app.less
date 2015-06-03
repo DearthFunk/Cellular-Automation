@@ -13,7 +13,8 @@ body {
     font-size: 12px;
     background-color: #000000;
     background-size: 100% 100%;
-	canvas.pinTopLeft {
+	background-image: url('background.jpg');
+	> canvas {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -25,5 +26,5 @@ body {
 }
 
 @import 'menu/menu.less';
-@import 'elements/slider/slider.less';
+@import 'directives/slider/slider.less';
 @import 'directives/cellActivator/cellActivator.less';

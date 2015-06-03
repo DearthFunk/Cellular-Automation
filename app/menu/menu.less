@@ -16,10 +16,10 @@ div.menuContainer {
     box-sizing: border-box;
     z-index: 2;
 	overflow-y: scroll;
-	> div.clearButton {
+	> div.button {
 		font-size: 20px;
 		text-align: center;
-		border: 3px solid white;
+		border: 1px solid white;
 		margin: 5px 0;
 		padding: 5px 0;
 		cursor: pointer;
@@ -28,12 +28,13 @@ div.menuContainer {
 		}
 	}
 	> div.growthTypeContainers {
+		border-top: 3px solid @borderColor;
 		border-bottom: 3px solid @borderColor;
 		padding: 5px;
+		margin: 5px 0;
 		text-align: center;
 		> div.growthType {
 			display: inline-block;
-			margin: 5px;
 			cursor: pointer;
 			border: 1px solid @borderColor;
 			background-color: @menuGrey;
@@ -44,28 +45,25 @@ div.menuContainer {
 			}
 		}
 	}
-	> div.directionalControls {
-		margin-top: 10px;
 
-	}
-	>div.typeControls {
+	> div.typeControls {
+		box-sizing: border-box;
+		text-align: center;
 
-		> div.birthStayAliveContainer {
-			> span {
-				display: inline;
-				&.title {
-					font-weight: bold;
-				}
-			}
-			> input {
-				width: 10px;
-				height: 10px;
+		> div.half {
+			display: inline-block;
+			width: 50%;
+			margin-bottom: 5px;
+			> div.title {
+				font-weight: bold;
+				font-size: 15px;
+				margin: 9px 0 5px 0;
 			}
 		}
 		> div.ruleType {
 			cursor: pointer;
 			&:hover {
-				background-color: @menuGrey;
+				background-color: @menuBlue;
 			}
 		}
 	}
