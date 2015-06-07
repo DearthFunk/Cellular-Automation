@@ -8,24 +8,24 @@
 
 	<!-- DIRECTIVES -->
 	<script type="text/javascript" src="app/directives/html.directive.js"></script>
-	<script type="text/javascript" src="app/directives/checklist.js"></script>
 	<script type="text/javascript" src="app/directives/cellActivator/cellActivator.directive.js"></script>
 	<script type="text/javascript" src="app/directives/slider/slider.directive.js"></script>
 
 	<!-- SERVICES -->
 	<script type="text/javascript" src="app/services/genColors.service.js"></script>
-	<script type="text/javascript" src="app/menu/menu.service.js"></script>
+	<script type="text/javascript" src="app/services/menu.service.js"></script>
 
 	<!-- APP -->
 	<script type="text/javascript" src="app/board/board.directive.js"></script>
 	<script type="text/javascript" src="app/menu/menu.directive.js"></script>
+
 
 	<!-- STYLE -->
 	<link rel="stylesheet/less" href="app/app.less">
 	<script type="text/javascript" src="lib/less.js"></script>
 
 </head>
-<body data-ng-controller="lifeController">
+<body>
 	<canvas board-directive></canvas>
 	<div menu></div>
 </body>

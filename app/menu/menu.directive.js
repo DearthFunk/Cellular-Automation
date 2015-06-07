@@ -17,11 +17,11 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', 'MENU_SIZE', 'RULE_TEMPLATES', 'menuService'];
+	menuController.$inject = ['$scope', '$rootScope', 'RULE_TEMPLATES', 'menuService'];
 
-	function menuController($scope, $rootScope, MENU_SIZE, RULE_TEMPLATES, menuService) {
+	function menuController($scope, $rootScope, RULE_TEMPLATES, menuService) {
 
-		$scope.MENU_SIZE = MENU_SIZE;
+		$scope.menuSize = 220;
 		$scope.RULE_TEMPLATES = RULE_TEMPLATES;
 		$scope.menuService = menuService;
 		$scope.clearGrid = clearGrid;
@@ -29,6 +29,7 @@
 		$scope.loadRule = loadRule;
 		$scope.recalculateColors = recalculateColors;
 		$scope.drawStep = drawStep;
+		$scope.editingSpeed = false;
 
 
 		var fileUploader = document.createElement('input');

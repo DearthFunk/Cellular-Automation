@@ -1,57 +1,78 @@
-<div class="menuContainer verticalScrollBarLight" data-ng-style="{width: MENU_SIZE + 'px'}">
-	<div class="button" data-ng-click="clearGrid()">CLEAR GRID</div>
-	<div class="button" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing ? 'PAUSE' : 'PLAY'}}</div>
+<div class="menuContainer verticalScrollBarLight" data-ng-style="{width: menuSize + 'px'}">
+
 	<div class="button" data-ng-click="menuService.borders = !menuService.borders">{{menuService.borders ? 'ShowBorders' : 'hideBorders'}}</div>
 	<div class="button" data-ng-click="loadImageFile()">UPLOAD</div>
-	<div class="button" data-ng-click="drawStep()">STEP</div>
 
-	<div class="growthTypeContainers">
+	<div class="section playPause">
+		<div class="right">
+			<div slider
+				data-title="'SPD'"
+				data-currently-moving="editingSpeed"
+				data-fixed-value="2"
+				data-slider-value="menuService.animationSpeed"
+				data-min-value="1"
+				data-max-value="3">
+			</div>
+		</div>
+		<div class="left">{{editingSpeed ? menuService.animationSpeed : 'SPD'}}</div>
+		<div class="bottom">
+			<div class="clear" data-ng-click="clearGrid()">CLR</div>
+			<div class="playPause" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing?'PAUSE':'PLAY'}}</div>
+			<div class="step" data-ng-click="drawStep()">>></div>
+		</div>
+	</div>
+	<div class="section colorPickers">
+		<input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne"><input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
+	</div>
+	<div class="section growthTypes">
 		<div class="growthType"
 		     data-ng-repeat="item in menuService.growthTypes"
 		     data-ng-class="{active: item == menuService.activeGrowthType}"
-		     data-ng-click="menuService.activeGrowthType = item"
-			></div>
-
+		     data-ng-click="menuService.activeGrowthType = item">
+		</div>
 	</div>
-	<div class="directionalControls" data-ng-if="menuService.activeGrowthType.index == 0">
+
+	<div class="section" data-ng-if="menuService.activeGrowthType.index == 0">
 		<div cell-activator
 		     data-show-label="false"
 		     data-cells="[1,2,3,4,6,7,8,9]"
 		     data-return-array="menuService.activeGrowthType.activatedCells">
 		</div>
 	</div>
-	<div class="typeControls" data-ng-show="menuService.activeGrowthType.index == 1">
+
+	<div class="section rules" data-ng-show="menuService.activeGrowthType.index == 1">
 		<div class="half">
 			<div class="title">STAY ALIVE</div>
 			<div cell-activator
 			     data-show-label="true"
-			     data-cells="[1,2,3,4,6,7,8,9]"
+			     data-cells="[1,2,3,4,5,6,7,8,9]"
 			     data-return-array="menuService.activeGrowthType.stayAlive">
 			</div>
 		</div><div class="half">
 			<div class="title">BIRTH</div>
 			<div cell-activator
 			     data-show-label="true"
-			     data-cells="[1,2,3,4,6,7,8,9]"
+			     data-cells="[1,2,3,4,5,6,7,8,9]"
 			     data-return-array="menuService.activeGrowthType.birth">
 			</div>
 		</div>
 		<div class="ruleType"
 		     data-ng-repeat="rule in RULE_TEMPLATES"
-		     data-ng-click="loadRule(rule)">{{rule.name}}
+		     data-ng-click="loadRule(rule)">
+			<div class="left">{{rule.name}}</div>
+			<div class="right">{{rule.stayAlive}}:{{rule.birth}}</div>
 		</div>
-
 	</div>
 
-
-	<div slider
-	     data-fixed-value="10"
-	     data-slider-value="menuService.animationSpeed"
-	     data-min-value="1"
-	     data-max-value="3">
+	<div class="section" data-ng-show="menuService.activeGrowthType.index == 2">
+		TBD
 	</div>
-	<input type="color" class="colorPicker" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne">
-	<input type="color" class="colorPicker" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
+	<div class="section" data-ng-show="menuService.activeGrowthType.index == 3">
+		TBD
+	</div>
+	<div class="section" data-ng-show="menuService.activeGrowthType.index == 4x">
+		TBD
+	</div>
 
 
 

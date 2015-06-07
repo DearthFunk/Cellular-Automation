@@ -6,10 +6,8 @@
 			'boardModule',
 			'menuModule',
 			'genColorsServiceModule',
-			'menuServiceModule',
-			'checklist-model'
+			'menuServiceModule'
 		])
-		.constant('MENU_SIZE', 220)
 		.constant('RULE_TEMPLATES',[
 			{stayAlive:[2,3], birth:[3], name:"Conway's Life", description:"A chaotic rule that is by far the most well-known and well-studied. It exhibits highly complex behavior."},
 			{stayAlive:[1], birth:[1], name:"GnarlA", description:"simple exploding rule that forms complex patterns from even a single live cell."},
@@ -19,7 +17,7 @@
 			{stayAlive:[0], birth:[2], name:"Live Free or Die", description:"An exploding rule in which only cells with no neighbors survive. It has many spaceships, puffers, and oscillators, some of infinitely extensible size and period."},
 			{stayAlive:[], birth:[2,3,4], name:"Serviettes", description:"An exploding rule in which every cell dies every generation (like seeds). This rule is of interest because of the fabric-like beauty of the patterns that it produces."},
 			{stayAlive:[0,2,3], birth:[3], name:"DotLife", description:"An exploding rule closely related to Conway's Life. The B-heptomino is a common infinite growth pattern in this rule, though it can be stabilized into a spaceship."},
-			{stayAlive:[0,1,2,3,4,5,6,7,8], birth:[3], name:"Life without death", description:"An expanding rule that produces complex flakes. It also has important ladder patterns."},
+			{stayAlive:[0,1,2,3,4,5,6,7,8], birth:[3], name:"Life without", description:"An expanding rule that produces complex flakes. It also has important ladder patterns."},
 			{stayAlive:[1,2,3,4], birth:[3], name:"Mazectric", description:"An expanding rule that crystalizes to form maze-like designs that tend to be straighter (ie. have longer halls) than the standard maze rule."},
 			{stayAlive:[1,2,3,4,5], birth:[3], name:"Maze", description:"An expanding rule that crystalizes to form maze-like designs."},
 			{stayAlive:[4,5,6,78], birth:[3], name:"Coral", description:"An exploding rule in which patterns grow slowly and form coral-like textures."},
@@ -39,13 +37,6 @@
 			{stayAlive:[2,3,4,5], birth:[4,5,6,7,8], name:"Walled cities", description:"A stable rule that forms centers of pseudo-random activity separated by walls."},
 			{stayAlive:[3,5,6,7,8], birth:[4,6,7,8], name:"Vote 4/5", description:"A modification of the standard Gérard Vichniac voting rule, also known as 'Anneal', used as a model for majority voting."},
 			{stayAlive:[4,5,6,7,8], birth:[5,6,7,8], name:"Vote", description:"Standard Gérard Vichniac voting rule, also known as 'Majority', used as a model for majority voting."}
-		])
-		.controller('lifeController', lifeController);
-
-	lifeController.$inject = ['$scope'];
-
-	function lifeController($scope) {
-
-	}
+		]);
 
 })();

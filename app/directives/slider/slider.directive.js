@@ -8,10 +8,11 @@
 	function slider() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/elements/slider/slider.html',
+			templateUrl: 'app/directives/slider/slider.html',
 			bindToController: true,
 			controller: sliderController,
 			scope: {
+				currentlyMoving: "=currentlyMoving",
 				sliderValue: "=sliderValue",
 				callBack: "=callBack",
 				minValue: "=minValue",
@@ -65,12 +66,15 @@
 		function mouseUpEvent() {
 			angular.element($window).unbind('mouseup', mouseUpEvent);
 			angular.element($window).unbind('mousemove', mouseMoveEvent);
+			$scope.currentlyMoving = false;
 		}
 		function mouseDown(event) {
+			$scope.currentlyMoving = true;
 			$scope.leftPos = event.clientX - $scope.getLeftAdjust();
 			$scope.setSliderValueAndRunCallBack();
 			angular.element($window).bind('mouseup', mouseUpEvent);
 			angular.element($window).bind('mousemove', mouseMoveEvent);
+
 		}
 
 		function setSliderValueAndRunCallBack(reset) {

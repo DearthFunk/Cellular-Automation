@@ -66,6 +66,7 @@
 		function calculateColorsEvent() {
 			automataColors = genColors.array.hex(menuService.colorOne,menuService.colorTwo,automata[0].length);
 		}
+
 		function imageLoadEvent(e, args) {
 			var imgObj = new Image();
 			imgObj.src = args.target.result;
