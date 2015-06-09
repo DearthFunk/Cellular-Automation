@@ -8,6 +8,10 @@
 			'genColorsServiceModule',
 			'menuServiceModule'
 		])
+		.constant('SPEED', {
+			MIN: 10,
+			MAX: 200
+		})
 		.constant('RULE_TEMPLATES',[
 			{stayAlive:[2,3], birth:[3], name:"Conway's Life", description:"A chaotic rule that is by far the most well-known and well-studied. It exhibits highly complex behavior."},
 			{stayAlive:[1], birth:[1], name:"GnarlA", description:"simple exploding rule that forms complex patterns from even a single live cell."},

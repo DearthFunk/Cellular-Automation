@@ -8,17 +8,18 @@
 			<div slider
 				data-title="'SPD'"
 				data-currently-moving="editingSpeed"
-				data-fixed-value="2"
+				data-fixed-value="0"
 				data-slider-value="menuService.animationSpeed"
-				data-min-value="1"
-				data-max-value="3">
+				data-min-value="SPEED.MIN"
+				data-max-value="SPEED.MAX">
 			</div>
 		</div>
 		<div class="left">{{editingSpeed ? menuService.animationSpeed : 'SPD'}}</div>
-		<div class="bottom">
-			<div class="clear" data-ng-click="clearGrid()">CLR</div>
-			<div class="playPause" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing?'PAUSE':'PLAY'}}</div>
-			<div class="step" data-ng-click="drawStep()">>></div>
+		<div class="bottom"
+		     data-ng-click="menuService.playing = !menuService.playing">
+			<div class="clear" data-ng-click="clearGrid($event)">CLR</div>
+			<div class="step" data-ng-click="drawStep($event)">>></div>
+			{{menuService.playing?'PAUSE':'PLAY'}}
 		</div>
 	</div>
 	<div class="section colorPickers">
@@ -31,6 +32,8 @@
 		     data-ng-click="menuService.activeGrowthType = item">
 		</div>
 	</div>
+
+	<!---------------------------------------------------------------------->
 
 	<div class="section" data-ng-if="menuService.activeGrowthType.index == 0">
 		<div cell-activator
@@ -70,7 +73,7 @@
 	<div class="section" data-ng-show="menuService.activeGrowthType.index == 3">
 		TBD
 	</div>
-	<div class="section" data-ng-show="menuService.activeGrowthType.index == 4x">
+	<div class="section" data-ng-show="menuService.activeGrowthType.index == 4">
 		TBD
 	</div>
 

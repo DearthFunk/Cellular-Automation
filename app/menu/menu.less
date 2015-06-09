@@ -38,7 +38,49 @@ div.menuContainer {
 		text-align: center;
 	}
 
+	div.playPause {
+		text-align: left;
+		position: relative;
 
+		> div.left {
+			display: inline-block;
+			font-size: 17px;
+			width: 35px;
+			margin-right: 10px;
+		}
+		> div.right {
+			position: absolute;
+			right: 0;
+			left: 45px;
+		}
+		> div.bottom {
+			position: relative;
+			width: 100%;
+			cursor: pointer;
+			text-align: center;
+			border: 1px solid #ffffff;
+			border-radius: 2px;
+			box-sizing: border-box;
+			margin: 10px 0 5px 0;
+
+			> div {
+				display: inline-block;
+				top: 0;
+				bottom: 0;
+				position: absolute;
+				&.clear {
+					border-right: 1px solid #ffffff;
+					width: 20px;
+					left: 0;
+				}
+				&.step {
+					border-left: 1px solid #ffffff;
+					width: 20px;
+					right: 0;
+				}
+			}
+		}
+	}
 	div.colorPickers {
 		> input {
 			-webkit-appearance: none;
@@ -58,28 +100,6 @@ div.menuContainer {
 		}
 		> input::-webkit-color-swatch {
 			border: none;
-		}
-	}
-
-	div.playPause {
-		text-align: left;
-		position: relative;
-
-		> div.left {
-			display: inline-block;
-			font-size: 17px;
-			width: 35px;
-			margin-right: 10px;
-		}
-		> div.right {
-			position: absolute;
-			right: 0;
-			left: 45px;
-		}
-		> div.bottom {
-			> div {
-				display: inline-block;
-			}
 		}
 	}
 	div.growthTypes {

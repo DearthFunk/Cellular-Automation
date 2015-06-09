@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService'];
-	function boardController($scope, $element, $window, $timeout, genColors, menuService) {
+	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED'];
+	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED) {
 
 		var ctx = $element[0].getContext('2d');
 		var prom;
@@ -203,7 +203,9 @@
 
 			if (menuService.playing) {
 				automataTimer++;
-				if (automataTimer % menuService.animationSpeed == 0) {
+
+				var timerSpd = Math.floor(parseInt(SPEED.MAX - menuService.animationSpeed + SPEED.MIN,10)/10);
+				if (automataTimer % timerSpd == 0) {
 					drawStep();
 				}
 			}
