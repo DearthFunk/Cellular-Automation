@@ -18,14 +18,16 @@
 
 
 			growthTypes:  [
-				{index:0, activatedCells:[2,4,6,8]},
-				{index:1, stayAlive: [], birth:[]},
+				{index:0, name: 'TOGGLER',
+					activatedCells:[2,4,6,8]},
+				{index:1, name: 'LIFE AND DEATH',
+					stayAlive: [], birth:[]},
 				{index:2},
 				{index:3},
 				{index:4}
 			],
 			birthOptions:[{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}],
-			stayAliveOptions:[{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}],
+			stayAliveOptions:[{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}]
 		};
 
 		service.activeGrowthType = service.growthTypes[1];

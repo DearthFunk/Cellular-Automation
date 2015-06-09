@@ -26,6 +26,7 @@
 		<input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne"><input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
 	</div>
 	<div class="section growthTypes">
+		<div class="growthTypeTitle">{{menuService.activeGrowthType.name}}</div>
 		<div class="growthType"
 		     data-ng-repeat="item in menuService.growthTypes"
 		     data-ng-class="{active: item == menuService.activeGrowthType}"

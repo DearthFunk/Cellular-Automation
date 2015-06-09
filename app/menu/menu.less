@@ -62,20 +62,27 @@ div.menuContainer {
 			border-radius: 2px;
 			box-sizing: border-box;
 			margin: 10px 0 5px 0;
-
+			height: 28px;
+			font-size: 19px;
+			&:hover {
+				background: @menuBlue;
+			}
 			> div {
 				display: inline-block;
 				top: 0;
 				bottom: 0;
 				position: absolute;
+				> div:hover {
+					background: @menuBlue;
+				}
 				&.clear {
 					border-right: 1px solid #ffffff;
-					width: 20px;
+					width: 40px;
 					left: 0;
 				}
 				&.step {
 					border-left: 1px solid #ffffff;
-					width: 20px;
+					width: 40px;
 					right: 0;
 				}
 			}
@@ -103,6 +110,11 @@ div.menuContainer {
 		}
 	}
 	div.growthTypes {
+		> div.growthTypeTitle {
+			font-weight: bold;
+			margin-bottom: 5px;
+			font-size: 19px;
+		}
 		> div.growthType {
 			width: 20px;
 			height: 20px;
