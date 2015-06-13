@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('life', [
+		.module('cellularAutomation', [
 			'boardModule',
 			'menuModule',
 			'genColorsServiceModule',

@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('life')
+		.module('cellularAutomation')
 		.directive('cellActivator', cellActivator);
 
 	cellActivator.$inject = [];
