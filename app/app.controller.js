@@ -9,7 +9,7 @@
 			'menuServiceModule'
 		])
 		.constant('SPEED', {
-			MIN: 10,
+			MIN: 1,
 			MAX: 200
 		})
 		.constant('RULE_TEMPLATES',[

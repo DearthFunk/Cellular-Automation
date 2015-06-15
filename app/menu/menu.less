@@ -32,58 +32,44 @@ div.menuContainer {
 	overflow-y: scroll;
 	> div.section {
 		border-top: 1px solid @borderColor;
-		border-bottom: 1px solid @borderColor;
-		padding: 5px;
+		padding: 10px 5px;
 		margin-bottom: -1px;
-		text-align: center;
+		&:first-child {
+			border-top: none;
+		}
 	}
+	div.options {
+		font-size: 16px;
+		input[type='checkbox'] {
 
+		}
+	}
 	div.playPause {
-		text-align: left;
-		position: relative;
-
-		> div.left {
-			display: inline-block;
-			font-size: 17px;
-			width: 35px;
-			margin-right: 10px;
-		}
-		> div.right {
-			position: absolute;
-			right: 0;
-			left: 45px;
-		}
-		> div.bottom {
-			position: relative;
+		> div.playPauseButtons {
+			display: table;
 			width: 100%;
-			cursor: pointer;
+			border: 2px solid #FFFFFF;
+			border-radius: 5px;
+			margin-top: 6px;
 			text-align: center;
-			border: 1px solid #ffffff;
-			border-radius: 2px;
-			box-sizing: border-box;
-			margin: 10px 0 5px 0;
-			height: 28px;
-			font-size: 19px;
-			&:hover {
-				background: @menuBlue;
-			}
 			> div {
-				display: inline-block;
-				top: 0;
-				bottom: 0;
-				position: absolute;
-				> div:hover {
-					background: @menuBlue;
+				display: table-cell;
+				cursor: pointer;
+				padding: 5px;
+				font-size: 16px;
+				font-weight: bold;
+				&:hover {
+					background-color: @menuBlue;
 				}
 				&.clear {
-					border-right: 1px solid #ffffff;
-					width: 40px;
-					left: 0;
+					width: 30px;
+				}
+				&.play {
+					border-left: 2px solid #FFFFFF;
+					border-right: 2px solid #FFFFFF;
 				}
 				&.step {
-					border-left: 1px solid #ffffff;
-					width: 40px;
-					right: 0;
+					width: 30px;
 				}
 			}
 		}
@@ -110,6 +96,7 @@ div.menuContainer {
 		}
 	}
 	div.growthTypes {
+		text-align: center;
 		> div.growthTypeTitle {
 			font-weight: bold;
 			margin-bottom: 5px;
@@ -130,10 +117,19 @@ div.menuContainer {
 			}
 		}
 	}
+	div.cellToggles {
+		text-align: center;
+	}
 	div.rules {
 		> div.half {
 			width: 50%;
 			display: inline-block;
+			> div.title {
+				text-align: center;
+			}
+			&.second {
+				margin-bottom: 10px;
+			}
 		}
 		> div.ruleType {
 			font-size: 12px;

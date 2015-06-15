@@ -15,8 +15,6 @@
 			animationSpeed: 80,
 			playing: false,
 			borders: false,
-
-
 			growthTypes:  [
 				{index:0, name: 'TOGGLER',
 					activatedCells:[2,4,6,8]},
