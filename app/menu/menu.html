@@ -4,14 +4,17 @@
 		<input type="checkbox" data-ng-model="menuService.borders"> Borders
 	</div>
 	<div class="section playPause">
-		<div slider
-		     class="slider"
-		     data-title="'SPD'"
-		     data-currently-moving="editingSpeed"
-		     data-fixed-value="0"
-		     data-slider-value="menuService.animationSpeed"
-		     data-min-value="SPEED.MIN"
-		     data-max-value="SPEED.MAX">
+		<div class="speedControls">
+			<div class="speed">{{editingSpeed ? menuService.animationSpeed : 'SPD'}}</div>
+			<div slider
+			     class="slider"
+			     data-title="'SPD'"
+			     data-currently-moving="editingSpeed"
+			     data-fixed-value="0"
+			     data-slider-value="menuService.animationSpeed"
+			     data-min-value="SPEED.MIN"
+			     data-max-value="SPEED.MAX">
+			</div>
 		</div>
 		<div class="playPauseButtons">
 			<div class="clear" data-ng-click="clearGrid($event)">CLR</div>

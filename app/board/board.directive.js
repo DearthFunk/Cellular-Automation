@@ -203,9 +203,9 @@
 
 			if (menuService.playing) {
 				automataTimer++;
-
-				var timerSpd = Math.floor(parseInt(SPEED.MAX - menuService.animationSpeed + SPEED.MIN,10)/10);
+				var timerSpd = Math.floor(parseInt(SPEED.MAX - menuService.animationSpeed + SPEED.MIN,10)/10) + 1;
 				if (automataTimer % timerSpd == 0) {
+					automataTimer = 0;
 					drawStep();
 				}
 			}
