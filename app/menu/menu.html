@@ -29,14 +29,14 @@
 		<div class="growthTypeTitle">{{menuService.activeGrowthType.name}}</div>
 		<div class="growthType"
 		     data-ng-repeat="item in menuService.growthTypes"
-		     data-ng-class="{active: item == menuService.activeGrowthType}"
+		     data-ng-class="{active: item.type == menuService.activeGrowthType.type}"
 		     data-ng-click="menuService.activeGrowthType = item">
 		</div>
 	</div>
 
 	<!---------------------------------------------------------------------->
 
-	<div class="section cellToggles" data-ng-if="menuService.activeGrowthType.index == 0">
+	<div class="section cellToggles" data-ng-if="menuService.activeGrowthType.type == GROWTH_TYPES.TOGGLER">
 		<div cell-activator
 		     data-show-label="false"
 		     data-cells="[1,2,3,4,6,7,8,9]"
@@ -44,7 +44,7 @@
 		</div>
 	</div>
 
-	<div class="section rules" data-ng-show="menuService.activeGrowthType.index == 1">
+	<div class="section rules" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.LIFE_AND_DEATH">
 		<div class="half">
 			<div class="title">STAY ALIVE</div>
 			<div cell-activator
@@ -68,13 +68,13 @@
 		</div>
 	</div>
 
-	<div class="section" data-ng-show="menuService.activeGrowthType.index == 2">
+	<div class="section" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.NEWTYPE3">
 		Not Yet Implemented
 	</div>
-	<div class="section" data-ng-show="menuService.activeGrowthType.index == 3">
+	<div class="section" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.NEWTYPE4">
 		Not Yet Implemented
 	</div>
-	<div class="section" data-ng-show="menuService.activeGrowthType.index == 4">
+	<div class="section" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.NEWTYPE5">
 		Not Yet Implemented
 	</div>
 

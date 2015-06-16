@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED'];
-	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED) {
+	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED', 'GROWTH_TYPES'];
+	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED, GROWTH_TYPES) {
 
 		var ctx = $element[0].getContext('2d');
 		var prom;
@@ -138,9 +138,9 @@
 		}
 
 		function drawStep() {
-			switch (menuService.activeGrowthType.index) {
-				case 0 : growthAnimation1(); break;
-				case 1 : growthAnimation2(); break;
+			switch (menuService.activeGrowthType.type) {
+				case GROWTH_TYPES.TOGGLER : growthAnimation1(); break;
+				case GROWTH_TYPES.LIFE_AND_DEATH : growthAnimation2(); break;
 				default : break;
 			}
 		}

@@ -5,9 +5,9 @@
 		.module('menuServiceModule', [])
 		.service('menuService', menuService);
 
-	menuService.$inject = ['RULE_TEMPLATES'];
+	menuService.$inject = ['GROWTH_TYPES'];
 
-	function menuService(RULE_TEMPLATES) {
+	function menuService(GROWTH_TYPES ) {
 
 		var service = {
 			colorOne: '#FF0000',
@@ -16,21 +16,22 @@
 			playing: false,
 			borders: false,
 			growthTypes:  [
-				{index:0, name: 'TOGGLER',
-					activatedCells:[2,4,6,8]},
-				{index:1, name: 'LIFE AND DEATH',
-					stayAlive: [], birth:[]},
-				{index:2},
-				{index:3},
-				{index:4}
+				{type: GROWTH_TYPES.TOGGLER,
+					name: 'TOGGLER',
+					activatedCells:[2,4,6,8]
+				},
+				{type: GROWTH_TYPES.LIFE_AND_DEATH,
+					name: 'LIFE AND DEATH',
+					stayAlive: [],
+					birth:[]},
+				{type: GROWTH_TYPES.NEWTYPE3},
+				{type: GROWTH_TYPES.NEWTYPE4},
+				{type: GROWTH_TYPES.NEWTYPE5}
 			],
 			//index, event type, description
 			log: [{type:'START',msg:'Welcome to the Log!!!'}]
 		};
 
-		service.activeGrowthType = service.growthTypes[1];
-		service.activeGrowthType.stayAlive = RULE_TEMPLATES[0].stayAlive;
-		service.activeGrowthType.birth = RULE_TEMPLATES[0].birth;
 
 	return service;
 
