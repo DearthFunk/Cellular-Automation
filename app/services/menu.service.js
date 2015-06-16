@@ -24,8 +24,8 @@
 				{index:3},
 				{index:4}
 			],
-			birthOptions:[{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}],
-			stayAliveOptions:[{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}]
+			//index, event type, description
+			log: [{type:'START',msg:'Welcome to the Log!!!'}]
 		};
 
 		service.activeGrowthType = service.growthTypes[1];

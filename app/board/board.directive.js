@@ -42,65 +42,28 @@
 			{y: 1, x: 0},
 			{y: 1, x: 1}
 		];
+		var logType = {
+			step: 'STEP',
+			tick: 'TICK',
+			speedChange: 'SPEED CHANGE',
+			clear: 'CLEAR GRID'
 
-
-
+		};
 
 		$scope.$on('clearGridEvent', clearGrid);
 		$scope.$on('windowResizeEvent', windowResize);
-		$element.bind('mousedown', mouseDownEvent);
-		$scope.$on('imageLoadEvent', imageLoadEvent);
 		$scope.$on('calculateColorsEvent', calculateColorsEvent);
 		$scope.$on('drawStepEvent', drawStep);
+		$element.bind('mousedown', mouseDownEvent);
 
 		windowResize();
 		init();
 		timer();
 
-		ctx.mozImageSmoothingEnabled = false;
-		ctx.webkitImageSmoothingEnabled = false;
-		ctx.imageSmoothingEnabled = false;
-
 		////////////////////////////////////////////////////
 
 		function calculateColorsEvent() {
 			automataColors = genColors.array.hex(menuService.colorOne,menuService.colorTwo,automata[0].length);
-		}
-
-		function imageLoadEvent(e, args) {
-			var imgObj = new Image();
-			imgObj.src = args.target.result;
-			var canvas = document.createElement('canvas');
-			var canvasContext = canvas.getContext('2d');
-			canvas.width = imgObj.width;
-			canvas.height = imgObj.height;
-			canvasContext.drawImage(imgObj, 0, 0);
-			var imgPixels = canvasContext.getImageData(0, 0, imgObj.width, imgObj.height);
-			for(var y = 0; y < imgPixels.height; y++){
-				for(var x = 0; x < imgPixels.width; x++){
-					var i = (y * 4) * imgPixels.width + x * 4;
-					var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-					imgPixels.data[i] = avg;
-					imgPixels.data[i + 1] = avg;
-					imgPixels.data[i + 2] = avg;
-				}
-			}
-
-
-			var size = (30) * 0.01,
-
-			// cache scaled width and height
-				w = canvas.width * size,
-				h = canvas.height * size;
-
-			// draw original image to the scaled size
-			//ctx.drawImage(img, 0, 0, w, h);
-			ctx.putImageData(imgPixels,0,0); //,imgObj.width, imgObj.height);
-			// then draw that scaled image thumb back to fill canvas
-			// As smoothing is off the result will be pixelated
-			ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
-			//ctx.putImageData(imgPixels, 0 , 0, 0, 0, imgPixels.width, imgPixels.height);
-
 		}
 
 		function clearGrid() {
@@ -176,8 +139,8 @@
 
 		function drawStep() {
 			switch (menuService.activeGrowthType.index) {
-				case 0 : automata1(); break;
-				case 1 : automata2(); break;
+				case 0 : growthAnimation1(); break;
+				case 1 : growthAnimation2(); break;
 				default : break;
 			}
 		}
@@ -210,7 +173,7 @@
 				}
 			}
 		}
-		function automata2() {
+		function growthAnimation2() {
 			var newGrid = newEmptyGrid();
 			for (var y = 1; y < newGrid.length-1; y++) {
 				for (var x = 1; x < newGrid[y].length-1; x++) {
@@ -227,7 +190,7 @@
 			}
 			automata = angular.copy(newGrid);
 		}
-		function automata1() {
+		function growthAnimation1() {
 			var newA = angular.copy(automata);
 			for (var y = 1; y < automata.length-1; y++) {
 				for (var x = 1; x < automata[y].length-1; x++) {
