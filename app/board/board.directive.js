@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED', 'GROWTH_TYPES'];
-	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED, GROWTH_TYPES) {
+	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED', 'GROWTH_TYPES', 'LOG_TYPE'];
+	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED, GROWTH_TYPES, LOG_TYPE) {
 
 		var ctx = $element[0].getContext('2d');
 		var prom;
@@ -68,6 +68,7 @@
 
 		function clearGrid() {
 			automata = newEmptyGrid();
+			menuService.addLogItem(LOG_TYPE.CLEAR);
 		}
 		function timer() {
 			drawGrid();
@@ -92,6 +93,8 @@
 			ctx.canvas.style.height = h + 'px';
 			ctx.canvas.width = w;
 			ctx.canvas.height = h;
+			menuService.addLogItem(LOG_TYPE.GRID_RESIZE);
+
 		}
 
 		function newEmptyGrid() {
@@ -111,6 +114,7 @@
 			cellsH = automata.length - 2;
 			cellsW = automata[0].length - 2;
 			calculateColorsEvent();
+			menuService.addLogItem(LOG_TYPE.INIT, 'Welcome to the Log!!!');
 		}
 
 		function mouseMoveEvent(e) {
@@ -128,6 +132,7 @@
 		function toggle(x,y, theArray) {
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
+			menuService.addLogItem(LOG_TYPE.CELL_TOGGLE, x+' '+y);
 			for (var i = 0; i < surroundingCells.length; i++) {
 				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
@@ -168,8 +173,8 @@
 				automataTimer++;
 				var timerSpd = Math.floor(parseInt(SPEED.MAX - menuService.animationSpeed + SPEED.MIN,10)/10) + 1;
 				if (automataTimer % timerSpd == 0) {
-					automataTimer = 0;
 					drawStep();
+					menuService.addLogItem(LOG_TYPE.STEP, automataTimer/timerSpd);
 				}
 			}
 		}

@@ -66,9 +66,15 @@
 		menuService.activeGrowthType.stayAlive = $scope.RULE_TEMPLATES[0].stayAlive;
 		menuService.activeGrowthType.birth = $scope.RULE_TEMPLATES[0].birth;
 
+		$scope.logData = '';
+		$scope.$watch('menuService.log.length',setLog );
+		setLog();
 
 		///////////////////////////////////////////////////
 
+		function setLog() {
+			$scope.logData = JSON.stringify(menuService.log);
+		}
 		function loadRule(rule) {
 			menuService.activeGrowthType.stayAlive = angular.copy(rule.stayAlive);
 			menuService.activeGrowthType.birth = angular.copy(rule.birth);

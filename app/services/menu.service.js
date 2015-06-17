@@ -14,11 +14,18 @@
 			NEWTYPE3: 3,
 			NEWTYPE4: 4,
 			NEWTYPE5: 5
+		})
+		.constant('LOG_TYPE', {
+			INIT: 'initialized app',
+			STEP: 'step',
+			CLEAR: 'grid cleared',
+			GRID_RESIZE: 'grid resized',
+			CELL_TOGGLE: 'cell toggled'
 		});
 
-	menuService.$inject = ['GROWTH_TYPES'];
+	menuService.$inject = ['GROWTH_TYPES', 'LOG_TYPE'];
 
-	function menuService(GROWTH_TYPES ) {
+	function menuService(GROWTH_TYPES, LOG_TYPE) {
 
 		var service = {
 			colorOne: '#FF0000',
@@ -40,13 +47,17 @@
 				{type: GROWTH_TYPES.NEWTYPE5}
 			],
 			//index, event type, description
-			log: [{type:'START',msg:'Welcome to the Log!!!'}]
+			log: [],
+			addLogItem: addLogItem
 		};
-
 
 	return service;
 
 		/////////////////////////////////
+
+		function addLogItem(type, msg) {
+			service.log.push({type: type, msg: msg});
+		}
 
 	}
 })();
