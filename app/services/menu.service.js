@@ -20,7 +20,8 @@
 			STEP: 'step',
 			CLEAR: 'grid cleared',
 			GRID_RESIZE: 'grid resized',
-			CELL_TOGGLE: 'cell toggled'
+			CELL_TOGGLE: 'cell toggled',
+			MOUSE_TOGGLE: 'mouse toggled'
 		});
 
 	menuService.$inject = ['GROWTH_TYPES', 'LOG_TYPE'];

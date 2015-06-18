@@ -94,7 +94,6 @@
 			ctx.canvas.width = w;
 			ctx.canvas.height = h;
 			menuService.addLogItem(LOG_TYPE.GRID_RESIZE);
-
 		}
 
 		function newEmptyGrid() {
@@ -124,15 +123,15 @@
 				if (x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
 					lastXpos = x;
 					lastYpos = y;
-					toggle(x,y, automata);
+					toggle(x,y, automata, true);
 				}
 			}
 		}
 
-		function toggle(x,y, theArray) {
+		function toggle(x,y, theArray, mouse) {
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
-			menuService.addLogItem(LOG_TYPE.CELL_TOGGLE, x+' '+y);
+			menuService.addLogItem(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, x+'-'+y);
 			for (var i = 0; i < surroundingCells.length; i++) {
 				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
@@ -196,24 +195,23 @@
 			automata = angular.copy(newGrid);
 		}
 		function growthAnimation1() {
-			var newA = angular.copy(automata);
-			for (var y = 1; y < automata.length-1; y++) {
-				for (var x = 1; x < automata[y].length-1; x++) {
+			var newGrid = angular.copy(automata);
+			for (var y = 1; y < newGrid.length-1; y++) {
+				for (var x = 1; x < newGrid[y].length-1; x++) {
 					if (automata[y][x].active) {
-						toggle(x,y, newA);
+						toggle(x,y, newGrid);
 						for (var i = 0; i < menuService.activeGrowthType.activatedCells.length; i++) {
 							var index = menuService.activeGrowthType.activatedCells[i] - 1;
 							var xIndex = x + surroundingCells[index].x;
 							var yIndex = y + surroundingCells[index].y;
 							if (xIndex > 0 && yIndex > 0 && xIndex <= cellsW && yIndex <= cellsH) {
-								toggle(xIndex, yIndex, newA);
+								toggle(xIndex, yIndex, newGrid);
 							}
 						}
 					}
 				}
 			}
-
-			automata = angular.copy(newA);
+			automata = angular.copy(newGrid);
 		}
 
 	}
