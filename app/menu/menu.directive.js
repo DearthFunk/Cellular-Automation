@@ -21,6 +21,9 @@
 
 	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService) {
 
+		var client = new ZeroClipboard(document.getElementById('copyButton'));
+		client.on('copy', getClipboardData);
+
 		$scope.RULE_TEMPLATES = [
 			{stayAlive:[2,3], birth:[3], name:"Conway's Life", description:"A chaotic rule that is by far the most well-known and well-studied. It exhibits highly complex behavior."},
 			{stayAlive:[1], birth:[1], name:"GnarlA", description:"simple exploding rule that forms complex patterns from even a single live cell."},
@@ -66,14 +69,10 @@
 		menuService.activeGrowthType.stayAlive = $scope.RULE_TEMPLATES[0].stayAlive;
 		menuService.activeGrowthType.birth = $scope.RULE_TEMPLATES[0].birth;
 
-		$scope.logData = '';
-		$scope.$watch('menuService.log.length',setLog );
-		setLog();
-
 		///////////////////////////////////////////////////
 
-		function setLog() {
-			$scope.logData = JSON.stringify(menuService.log);
+		function getClipboardData(e) {
+			e.clipboardData.setData('text/plain', JSON.stringify(menuService.log) );
 		}
 		function loadRule(rule) {
 			menuService.activeGrowthType.stayAlive = angular.copy(rule.stayAlive);
