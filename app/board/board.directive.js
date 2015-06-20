@@ -82,7 +82,13 @@
 				if (x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
 					lastX = x;
 					lastY = y;
-					gridToggleCell(x,y, grid, true);
+					if (menuService.editingLogPosition) {
+						menuService.logX = x;
+						menuService.logY = y;
+					}
+					else {
+						gridToggleCell(x,y, grid, true);
+					}
 					animationDraw();
 				}
 			}
@@ -214,7 +220,7 @@
 				for (var x = 1; x < grid[y].length - 1; x++) {
 					var cell = grid[y][x];
 					if (x === menuService.logX && y === menuService.logY) {
-						animationDrawCell(cell, cell.active ? '#00FF00' : 'rgba(0,255,0,0.2)');
+						animationDrawCell(cell, cell.active ? menuService.logPositionColor : menuService.logPositionColorActive);
 					}
 					else if (cell.active) {
 						animationDrawCell(cell, gridColorArray[x]);

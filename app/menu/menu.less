@@ -84,6 +84,8 @@ div.menuContainer {
 		}
 	}
 	div.colorPickers {
+		text-align: center;
+		font-size: 16px;
 		> input {
 			-webkit-appearance: none;
 			border: none;
@@ -102,6 +104,20 @@ div.menuContainer {
 		}
 		> input::-webkit-color-swatch {
 			border: none;
+		}
+		> input.logPos {
+			width: 100%;
+		}
+		> div.editingLogPosition {
+			cursor: pointer;
+			margin-bottom: 1px;
+			&:hover {
+				background-color: @menuBlue;
+			}
+			&.active {
+				background-color: @menuGreen;
+				color: #000000;
+			}
 		}
 	}
 	div.growthTypes {

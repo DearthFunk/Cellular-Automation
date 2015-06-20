@@ -42,6 +42,9 @@
 				{type: GROWTH_TYPES.NEWTYPE5,
 					name: 'TBD'}
 			],
+			logPositionColor: '#00FF00',
+			logPositionColorActive: 'rgba(0,255,0,0.5)',
+			editingLogPosition: false,
 			logX: 1,
 			logY: 1,
 			log: [],

@@ -24,6 +24,13 @@
 		</div>
 	</div>
 	<div class="section colorPickers">
+		<div class="editingLogPosition"
+		     data-ng-class="{active: menuService.editingLogPosition}"
+		     data-ng-click="menuService.editingLogPosition = !menuService.editingLogPosition">
+			EDIT LOG POS
+		</div>
+		<input class="logPos" data-ng-change="recalculateLogPositionColor()" type="color" data-ng-model="menuService.logPositionColor">
+		GRID COLORS<br>
 		<input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne"><input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
 	</div>
 	<div class="section growthTypes">

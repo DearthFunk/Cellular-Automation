@@ -17,9 +17,9 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', 'SPEED', 'GROWTH_TYPES', 'menuService'];
+	menuController.$inject = ['$scope', '$rootScope', 'SPEED', 'GROWTH_TYPES', 'menuService', 'genColors'];
 
-	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService) {
+	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService, genColors) {
 
 		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		client.on('copy', getClipboardData);
@@ -60,6 +60,7 @@
 		$scope.clearGrid = clearGrid;
 		$scope.loadRule = loadRule;
 		$scope.recalculateColors = recalculateColors;
+		$scope.recalculateLogPositionColor = recalculateLogPositionColor;
 		$scope.drawStep = drawStep;
 		$scope.editingSpeed = false;
 		$scope.menuSize = 220;
@@ -88,6 +89,9 @@
 		}
 		function recalculateColors() {
 			$rootScope.$broadcast('calculateColorsEvent');
+		}
+		function recalculateLogPositionColor() {
+			menuService.logPositionColorActive = genColors.convert.rgba(menuService.logPositionColor, 0.5);
 		}
 	}
 })();
