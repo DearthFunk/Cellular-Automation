@@ -24,8 +24,6 @@
 		var h = 0;
 		var cellsW = 0;
 		var cellsH = 0;
-
-		var automata = [];
 		var automataSquareSize = 15;
 		var automataTimer = 0;
 		var lastXpos = -1;
@@ -56,19 +54,26 @@
 		$scope.$on('drawStepEvent', drawStep);
 		$element.bind('mousedown', mouseDownEvent);
 
+
+		menuService.addLogItem(LOG_TYPE.INIT, 'Welcome to the Log!!!');
+		var automata = newEmptyGrid();
 		windowResize();
-		init();
+
 		timer();
 
 		////////////////////////////////////////////////////
 
 		function calculateColorsEvent() {
-			automataColors = genColors.array.hex(menuService.colorOne,menuService.colorTwo,automata[0].length);
+			automataColors = genColors.array.hex(menuService.colorOne,menuService.colorTwo,cellsW);
 		}
-
 		function clearGrid() {
-			automata = newEmptyGrid();
 			menuService.addLogItem(LOG_TYPE.CLEAR);
+			for (var y = 0; y < automata.length; y++) {
+				for (var x = 0; x < automata[y].length; x++) {
+					automata[y][x].active = false;
+					automata[y][x].count = 0;
+				}
+			}
 		}
 		function timer() {
 			drawGrid();
@@ -86,34 +91,60 @@
 			lastYpos = -1;
 		}
 
+		var old
 		function windowResize() {
 			w = $window.innerWidth;
 			h = $window.innerHeight;
+			cellsH = Math.ceil(h/automataSquareSize);
+			cellsW = Math.ceil(w/automataSquareSize);
 			ctx.canvas.style.width = w + 'px';
 			ctx.canvas.style.height = h + 'px';
 			ctx.canvas.width = w;
 			ctx.canvas.height = h;
-			menuService.addLogItem(LOG_TYPE.GRID_RESIZE);
+			reCalculateGrid();
+			calculateColorsEvent();
+			menuService.addLogItem(LOG_TYPE.GRID_RESIZE, cellsW+'-'+cellsH);
 		}
 
+		function reCalculateGrid() {
+			var height = automata.length > cellsH ? automata.length : cellsH;
+			var width = automata[0].length > cellsW ? automata[0].length : cellsW;
+			for (var y = -1; y < height+1; y++) {
+				if (angular.isUndefined(automata[y+1])) {
+					automata.push([]);
+				}
+				for (var x = -1; x < width+1; x++) {
+					if (angular.isUndefined(automata[y+1][x+1])) {
+						automata[y+1].push({
+							x: x*automataSquareSize,
+							y: y*automataSquareSize,
+							active: false,
+							count: 0
+						})
+					}
+					//reset cells greater than the grid side
+					else if (x > cellsW-1 || y > cellsH-1) {
+						automata[y+1][x+1].active = false;
+						automata[y+1][x+1].count = 0;
+					}
+				}
+			}
+		}
 		function newEmptyGrid() {
 			var grid = [];
-			for (var y = -automataSquareSize; y < h+automataSquareSize; y+=automataSquareSize) {
+			for (var y = -1; y < cellsH+1; y++) {
 				var xArray = [];
-				for (var x = -automataSquareSize; x < w+automataSquareSize; x+=automataSquareSize) {
-					xArray.push({x: x,y: y, active: false, count: 0})
+				for (var x = -1; x < cellsW+1; x++) {
+					xArray.push({
+						x: x*automataSquareSize,
+						y: y*automataSquareSize,
+						active: false,
+						count: 0}
+					)
 				}
 				grid.push(xArray);
 			}
 			return grid;
-		}
-
-		function init() {
-			automata = newEmptyGrid();
-			cellsH = automata.length - 2;
-			cellsW = automata[0].length - 2;
-			calculateColorsEvent();
-			menuService.addLogItem(LOG_TYPE.INIT, 'Welcome to the Log!!!');
 		}
 
 		function mouseMoveEvent(e) {

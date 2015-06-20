@@ -43,9 +43,12 @@
 					name: 'LIFE AND DEATH',
 					stayAlive: [],
 					birth:[]},
-				{type: GROWTH_TYPES.NEWTYPE3},
-				{type: GROWTH_TYPES.NEWTYPE4},
-				{type: GROWTH_TYPES.NEWTYPE5}
+				{type: GROWTH_TYPES.NEWTYPE3,
+					name: 'TBD'},
+				{type: GROWTH_TYPES.NEWTYPE4,
+					name: 'TBD'},
+				{type: GROWTH_TYPES.NEWTYPE5,
+					name: 'TBD'}
 			],
 			//index, event type, description
 			log: [],
