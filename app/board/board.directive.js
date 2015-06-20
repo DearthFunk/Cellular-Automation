@@ -2,7 +2,15 @@
 	'use strict';
 	angular
 		.module('boardModule', [])
-		.directive('boardDirective', board);
+		.directive('boardDirective', board)
+		.constant('LOG_TYPE', {
+			INIT: 'initialized app',
+			STEP: 'step',
+			CLEAR: 'grid cleared',
+			GRID_RESIZE: 'grid resized',
+			CELL_TOGGLE: 'cell toggled',
+			MOUSE_TOGGLE: 'mouse toggled'
+		});
 
 	function board() {
 		var directive = {

@@ -14,19 +14,11 @@
 			NEWTYPE3: 3,
 			NEWTYPE4: 4,
 			NEWTYPE5: 5
-		})
-		.constant('LOG_TYPE', {
-			INIT: 'initialized app',
-			STEP: 'step',
-			CLEAR: 'grid cleared',
-			GRID_RESIZE: 'grid resized',
-			CELL_TOGGLE: 'cell toggled',
-			MOUSE_TOGGLE: 'mouse toggled'
 		});
 
-	menuService.$inject = ['GROWTH_TYPES', 'LOG_TYPE'];
+	menuService.$inject = ['GROWTH_TYPES'];
 
-	function menuService(GROWTH_TYPES, LOG_TYPE) {
+	function menuService(GROWTH_TYPES) {
 
 		var service = {
 			colorOne: '#FF0000',
@@ -50,7 +42,8 @@
 				{type: GROWTH_TYPES.NEWTYPE5,
 					name: 'TBD'}
 			],
-			//index, event type, description
+			logX: 0,
+			logY: 0,
 			log: [],
 			addLogItem: addLogItem
 		};
