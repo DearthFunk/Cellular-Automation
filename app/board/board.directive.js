@@ -91,6 +91,7 @@
 			ctx.canvas.height = h;
 			gridRecalculateSize();
 			animationRecalculateColors();
+			animationDraw();
 			menuService.addLogItem(LOG_TYPE.GRID_RESIZE, cellsW+'-'+cellsH);
 		}
 
@@ -104,7 +105,7 @@
 					grid[y][x].count = 0;
 				}
 			}
-			animationDraw();
+			ctx.clearRect(0, 0, w, h);
 		}
 
 		function gridRecalculateSize() {
