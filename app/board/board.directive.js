@@ -185,8 +185,6 @@
 			prom = $timeout(animationTimer,timerSpd);
 		}
 
-
-
 		function animationStep() {
 			if (menuService.activeGrowthType) {
 				switch (menuService.activeGrowthType.type) {
@@ -198,21 +196,28 @@
 			animationDraw();
 		}
 
+		function animationDrawCell(cell, color) {
+			ctx.beginPath();
+			ctx.fillStyle = color;
+			ctx.rect(cell.x, cell.y, cellSize, cellSize);
+			if (menuService.borders) {
+				ctx.lineWidth = 2;
+				ctx.stroke();
+			}
+			ctx.fill();
+			ctx.closePath();
+		}
+
 		function animationDraw() {
 			ctx.clearRect(0, 0, w, h);
 			for (var y = 1; y < grid.length - 1; y++) {
 				for (var x = 1; x < grid[y].length - 1; x++) {
 					var cell = grid[y][x];
-					if (cell.active) {
-						ctx.beginPath();
-						ctx.fillStyle = gridColorArray[x];
-						ctx.rect(cell.x, cell.y, cellSize, cellSize);
-						if (menuService.borders) {
-							ctx.lineWidth = 2;
-							ctx.stroke();
-						}
-						ctx.fill();
-						ctx.closePath();
+					if (x === menuService.logX && y === menuService.logY) {
+						animationDrawCell(cell, cell.active ? '#00FF00' : 'rgba(0,255,0,0.2)');
+					}
+					else if (cell.active) {
+						animationDrawCell(cell, gridColorArray[x]);
 					}
 				}
 			}

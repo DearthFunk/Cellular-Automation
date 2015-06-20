@@ -42,8 +42,8 @@
 				{type: GROWTH_TYPES.NEWTYPE5,
 					name: 'TBD'}
 			],
-			logX: 0,
-			logY: 0,
+			logX: 1,
+			logY: 1,
 			log: [],
 			addLogItem: addLogItem
 		};
