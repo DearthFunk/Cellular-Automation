@@ -16,9 +16,9 @@
 			NEWTYPE5: 5
 		});
 
-	menuService.$inject = ['GROWTH_TYPES'];
+	menuService.$inject = ['GROWTH_TYPES', 'genColors'];
 
-	function menuService(GROWTH_TYPES) {
+	function menuService(GROWTH_TYPES, genColors) {
 
 		var service = {
 			colorOne: '#FF0000',
@@ -42,21 +42,21 @@
 				{type: GROWTH_TYPES.NEWTYPE5,
 					name: 'TBD'}
 			],
-			logPositionColor: '#00FF00',
-			logPositionColorActive: 'rgba(0,255,0,0.5)',
+			logPositionColor: '#DDDDFF',
+			logPositionColorActive: '',
 			editingLogPosition: false,
 			logX: 1,
 			logY: 1,
 			log: [],
 			addLogItem: addLogItem
 		};
-
-	return service;
+		service.logPositionColorActive = genColors.convert.rgba(service.logPositionColor, 0.5);
+		return service;
 
 		/////////////////////////////////
 
 		function addLogItem(type, msg) {
-			service.log.push({type: type, msg: msg});
+			service.log.push([type, msg]);
 		}
 
 	}

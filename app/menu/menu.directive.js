@@ -21,9 +21,6 @@
 
 	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService, genColors) {
 
-		var client = new ZeroClipboard(document.getElementById('copyButton'));
-		client.on('copy', getClipboardData);
-
 		$scope.RULE_TEMPLATES = [
 			{stayAlive:[2,3], birth:[3], name:"Conway's Life", description:"A chaotic rule that is by far the most well-known and well-studied. It exhibits highly complex behavior."},
 			{stayAlive:[1], birth:[1], name:"GnarlA", description:"simple exploding rule that forms complex patterns from even a single live cell."},
@@ -62,8 +59,10 @@
 		$scope.recalculateColors = recalculateColors;
 		$scope.recalculateLogPositionColor = recalculateLogPositionColor;
 		$scope.drawStep = drawStep;
+		$scope.downloadLog = downloadLog;
 		$scope.editingSpeed = false;
 		$scope.menuSize = 220;
+		var logFileName = 'log.csv';
 
 		//set initial activeGrowthType
 		menuService.activeGrowthType = menuService.growthTypes[1];
@@ -72,8 +71,32 @@
 
 		///////////////////////////////////////////////////
 
-		function getClipboardData(e) {
-			e.clipboardData.setData('text/plain', JSON.stringify(menuService.log) );
+		function downloadLog(e) {
+			var csvFile = '';
+			for (var i = 0; i < menuService.log.length; i++) {
+				csvFile += menuService.log[i] + '\r\n';
+			}
+			var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+
+			if (navigator.msSaveBlob) { // IE 10+
+				navigator.msSaveBlob(blob, logFileName);
+			} else {
+				var link = document.createElement("a");
+				if (link.download !== undefined) { // feature detection
+					// Browsers that support HTML5 download attribute
+
+					var url = URL.createObjectURL(blob);
+					console.log(url);
+					link.setAttribute("href", url);
+					link.setAttribute("download", logFileName);
+					link.style.visibility = 'hidden';
+					document.body.appendChild(link);
+					link.click();
+					document.body.removeChild(link);
+				}
+			}
+
+
 		}
 		function loadRule(rule) {
 			menuService.activeGrowthType.stayAlive = angular.copy(rule.stayAlive);
