@@ -168,7 +168,7 @@
 		function gridToggleCell(x,y, theArray, mouse) {
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
-			menuService.addLogItem(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, x+'-'+y);
+			menuService.addLogItem(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, (x-menuService.logX)+'.'+(y-menuService.logY));
 			for (var i = 0; i < surroundingCells.length; i++) {
 				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
