@@ -2,7 +2,7 @@
 
 	<div class="section options">
 		<input type="checkbox" data-ng-model="menuService.borders"> Borders<br>
-		<input type="button" value="Get Log" data-ng-click="downloadLog()">
+		<input type="button" value="Get Log" data-ng-click="log.generateCSV()">
 	</div>
 	<div class="section playPause">
 		<div class="speedControls">
@@ -25,11 +25,11 @@
 	</div>
 	<div class="section colorPickers">
 		<div class="editingLogPosition"
-		     data-ng-class="{active: menuService.editingLogPosition}"
-		     data-ng-click="menuService.editingLogPosition = !menuService.editingLogPosition">
+		     data-ng-class="{active: log.editingPos}"
+		     data-ng-click="log.editingPos = !log.editingPos">
 			EDIT LOG POS
 		</div>
-		<input class="logPos" data-ng-change="recalculateLogPositionColor()" type="color" data-ng-model="menuService.logPositionColor">
+		<input class="logPos" data-ng-change="log.recalculateColor()" type="color" data-ng-model="log.color">
 		GRID COLORS<br>
 		<input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne"><input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
 	</div>

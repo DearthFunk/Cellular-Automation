@@ -6,7 +6,8 @@
 			'boardModule',
 			'menuModule',
 			'genColorsServiceModule',
-			'menuServiceModule'
+			'menuServiceModule',
+			'logServiceModule'
 		])
 
 

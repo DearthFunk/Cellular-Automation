@@ -2,15 +2,7 @@
 	'use strict';
 	angular
 		.module('boardModule', [])
-		.directive('boardDirective', board)
-		.constant('LOG_TYPE', {
-			INIT: 'initialized app',
-			STEP: 'step',
-			CLEAR: 'grid cleared',
-			GRID_RESIZE: 'grid resized',
-			CELL_TOGGLE: 'cell toggled',
-			MOUSE_TOGGLE: 'mouse toggled'
-		});
+		.directive('boardDirective', board);
 
 	function board() {
 		var directive = {
@@ -23,8 +15,8 @@
 		return directive;
 	}
 
-	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED', 'GROWTH_TYPES', 'LOG_TYPE'];
-	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED, GROWTH_TYPES, LOG_TYPE) {
+	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED', 'GROWTH_TYPES', 'LOG_TYPE', 'log'];
+	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED, GROWTH_TYPES, LOG_TYPE, log) {
 
 		var prom;
 		var w = 0;
@@ -56,7 +48,7 @@
 		$scope.$on('drawStepEvent', animationStep);
 		$element.bind('mousedown', mouseDownEvent);
 
-		menuService.addLogItem(LOG_TYPE.INIT, 'Welcome to the Log!!!');
+
 		windowResize();
 		animationTimer();
 
@@ -82,9 +74,9 @@
 				if (x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
 					lastX = x;
 					lastY = y;
-					if (menuService.editingLogPosition) {
-						menuService.logX = x;
-						menuService.logY = y;
+					if (log.editingPos) {
+						log.logX = x;
+						log.logY = y;
 					}
 					else {
 						gridToggleCell(x,y, grid, true);
@@ -106,13 +98,13 @@
 			gridRecalculateSize();
 			animationRecalculateColors();
 			animationDraw();
-			menuService.addLogItem(LOG_TYPE.GRID_RESIZE, cellsW+'-'+cellsH);
+			log.addEntry(LOG_TYPE.GRID_RESIZE, cellsW+'-'+cellsH);
 		}
 
 		////////////////////////////////////////////////////
 
 		function gridClear() {
-			menuService.addLogItem(LOG_TYPE.CLEAR);
+			log.addEntry(LOG_TYPE.CLEAR);
 			for (var y = 0; y < grid.length; y++) {
 				for (var x = 0; x < grid[y].length; x++) {
 					grid[y][x].active = false;
@@ -168,7 +160,7 @@
 		function gridToggleCell(x,y, theArray, mouse) {
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
-			menuService.addLogItem(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, (x-menuService.logX)+'.'+(y-menuService.logY));
+			log.addEntry(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, (x-log.logX)+'.'+(y-log.logY));
 			for (var i = 0; i < surroundingCells.length; i++) {
 				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
@@ -220,8 +212,8 @@
 			for (var y = 1; y < grid.length - 1; y++) {
 				for (var x = 1; x < grid[y].length - 1; x++) {
 					var cell = grid[y][x];
-					if (x === menuService.logX && y === menuService.logY) {
-						animationDrawCell(cell, cell.active ? menuService.logPositionColor : menuService.logPositionColorActive);
+					if (x === log.logX && y === log.logY) {
+						animationDrawCell(cell, cell.active ? log.color : log.colorActive);
 					}
 					else if (cell.active) {
 						animationDrawCell(cell, gridColorArray[x]);

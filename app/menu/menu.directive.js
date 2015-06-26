@@ -17,9 +17,9 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', 'SPEED', 'GROWTH_TYPES', 'menuService', 'genColors'];
+	menuController.$inject = ['$scope', '$rootScope', 'SPEED', 'GROWTH_TYPES', 'menuService', 'log'];
 
-	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService, genColors) {
+	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService, log) {
 
 		$scope.RULE_TEMPLATES = [
 			{stayAlive:[2,3], birth:[3], name:"Conway's Life", description:"A chaotic rule that is by far the most well-known and well-studied. It exhibits highly complex behavior."},
@@ -51,18 +51,18 @@
 			{stayAlive:[3,5,6,7,8], birth:[4,6,7,8], name:"Vote 4/5", description:"A modification of the standard Gérard Vichniac voting rule, also known as 'Anneal', used as a model for majority voting."},
 			{stayAlive:[4,5,6,7,8], birth:[5,6,7,8], name:"Vote", description:"Standard Gérard Vichniac voting rule, also known as 'Majority', used as a model for majority voting."}
 		];
-		$scope.GROWTH_TYPES = GROWTH_TYPES;
+		$scope.log = log;
 		$scope.SPEED = SPEED;
 		$scope.menuService = menuService;
+		$scope.GROWTH_TYPES = GROWTH_TYPES;
+
 		$scope.clearGrid = clearGrid;
 		$scope.loadRule = loadRule;
 		$scope.recalculateColors = recalculateColors;
-		$scope.recalculateLogPositionColor = recalculateLogPositionColor;
 		$scope.drawStep = drawStep;
-		$scope.downloadLog = downloadLog;
+
 		$scope.editingSpeed = false;
 		$scope.menuSize = 220;
-		var logFileName = 'log.csv';
 
 		//set initial activeGrowthType
 		menuService.activeGrowthType = menuService.growthTypes[1];
@@ -71,33 +71,6 @@
 
 		///////////////////////////////////////////////////
 
-		function downloadLog(e) {
-			var csvFile = '';
-			for (var i = 0; i < menuService.log.length; i++) {
-				csvFile += menuService.log[i] + '\r\n';
-			}
-			var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-
-			if (navigator.msSaveBlob) { // IE 10+
-				navigator.msSaveBlob(blob, logFileName);
-			} else {
-				var link = document.createElement("a");
-				if (link.download !== undefined) { // feature detection
-					// Browsers that support HTML5 download attribute
-
-					var url = URL.createObjectURL(blob);
-					console.log(url);
-					link.setAttribute("href", url);
-					link.setAttribute("download", logFileName);
-					link.style.visibility = 'hidden';
-					document.body.appendChild(link);
-					link.click();
-					document.body.removeChild(link);
-				}
-			}
-
-
-		}
 		function loadRule(rule) {
 			menuService.activeGrowthType.stayAlive = angular.copy(rule.stayAlive);
 			menuService.activeGrowthType.birth = angular.copy(rule.birth);
@@ -112,9 +85,6 @@
 		}
 		function recalculateColors() {
 			$rootScope.$broadcast('calculateColorsEvent');
-		}
-		function recalculateLogPositionColor() {
-			menuService.logPositionColorActive = genColors.convert.rgba(menuService.logPositionColor, 0.5);
 		}
 	}
 })();
