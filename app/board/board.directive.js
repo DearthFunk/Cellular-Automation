@@ -24,11 +24,11 @@
 		var cellsW = 0;
 		var cellsH = 0;
 		var cellSize = 15;
-		var timerSpd = 0;
 		var lastX = -1;
 		var lastY = -1;
 		var gridColorArray = [];
-		var grid = gridNew();
+		var emptyGrid = gridNew();
+		var grid = angular.copy(emptyGrid);
 		var ctx = $element[0].getContext('2d');
 		var surroundingCells = [
 			{y:-1, x:-1},
@@ -42,12 +42,11 @@
 			{y: 1, x: 1}
 		];
 
+		$window.onresize = windowResize;
 		$scope.$on('clearGridEvent', gridClear);
-		$scope.$on('windowResizeEvent', windowResize);
 		$scope.$on('calculateColorsEvent', animationRecalculateColors);
 		$scope.$on('drawStepEvent', animationStep);
 		$element.bind('mousedown', mouseDownEvent);
-
 
 		windowResize();
 		animationTimer();
@@ -70,19 +69,17 @@
 		function mouseMoveEvent(e) {
 			var x = Math.floor(e.clientX / cellSize) + 1;
 			var y = Math.floor(e.clientY / cellSize) + 1;
-			if((x != lastX || y != lastY)) {
-				if (x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
-					lastX = x;
-					lastY = y;
-					if (log.editingPos) {
-						log.logX = x;
-						log.logY = y;
-					}
-					else {
-						gridToggleCell(x,y, grid, true);
-					}
-					animationDraw();
+			if((x != lastX || y != lastY) && x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
+				lastX = x;
+				lastY = y;
+				if (log.editingPos) {
+					log.logX = x;
+					log.logY = y;
 				}
+				else {
+					gridToggleCell(x,y, grid, true);
+				}
+				animationDraw();
 			}
 		}
 
@@ -95,6 +92,7 @@
 			ctx.canvas.style.height = h + 'px';
 			ctx.canvas.width = w;
 			ctx.canvas.height = h;
+			emptyGrid = gridNew();
 			gridRecalculateSize();
 			animationRecalculateColors();
 			animationDraw();
@@ -244,7 +242,7 @@
 		}
 
 		function growthAnimation2() {
-			var newGrid = gridNew();
+			var newGrid = angular.copy(emptyGrid);
 			for (var y = 1; y < newGrid.length-1; y++) {
 				for (var x = 1; x < newGrid[y].length-1; x++) {
 					var count = grid[y][x].count;

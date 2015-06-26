@@ -16,19 +16,19 @@
 
 	function log(genColors) {
 
+		var clr = '#DDDDFF';
+
 		var service = {
 			logX: 1,
 			logY: 1,
 			log: [],
 			editingPos: false,
-			color: '#DDDDFF',
-			colorActive: '',
+			color: clr,
+			colorActive: genColors.convert.rgba(clr, 0.5),
 			addEntry: addEntry,
 			generateCSV: generateCSV,
 			recalculateColor: recalculateColor
 		};
-
-		service.colorActive = genColors.convert.rgba(service.color, 0.5);
 
 		return service;
 

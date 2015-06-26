@@ -9,6 +9,4 @@
 			'menuServiceModule',
 			'logServiceModule'
 		])
-
-
 })();
