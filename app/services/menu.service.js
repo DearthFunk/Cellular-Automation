@@ -4,10 +4,6 @@
 	angular
 		.module('menuServiceModule', [])
 		.service('menuService', menuService)
-		.constant('SPEED', {
-			MIN: 1,
-			MAX: 200
-		})
 		.constant('GROWTH_TYPES', {
 			TOGGLER: 1,
 			LIFE_AND_DEATH: 2,

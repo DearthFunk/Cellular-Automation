@@ -17,9 +17,9 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', 'SPEED', 'GROWTH_TYPES', 'menuService', 'log'];
+	menuController.$inject = ['$scope', '$rootScope', 'GROWTH_TYPES', 'menuService', 'log'];
 
-	function menuController($scope, $rootScope, SPEED, GROWTH_TYPES, menuService, log) {
+	function menuController($scope, $rootScope, GROWTH_TYPES, menuService, log) {
 
 		$scope.RULE_TEMPLATES = [
 			{stayAlive:[2,3], birth:[3], name:"Conway's Life", description:"A chaotic rule that is by far the most well-known and well-studied. It exhibits highly complex behavior."},
@@ -52,7 +52,6 @@
 			{stayAlive:[4,5,6,7,8], birth:[5,6,7,8], name:"Vote", description:"Standard Gérard Vichniac voting rule, also known as 'Majority', used as a model for majority voting."}
 		];
 		$scope.log = log;
-		$scope.SPEED = SPEED;
 		$scope.menuService = menuService;
 		$scope.GROWTH_TYPES = GROWTH_TYPES;
 

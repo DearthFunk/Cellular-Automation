@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'SPEED', 'GROWTH_TYPES', 'LOG_TYPE', 'log'];
-	function boardController($scope, $element, $window, $timeout, genColors, menuService, SPEED, GROWTH_TYPES, LOG_TYPE, log) {
+	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'GROWTH_TYPES', 'LOG_TYPE', 'log'];
+	function boardController($scope, $element, $window, $timeout, genColors, menuService, GROWTH_TYPES, LOG_TYPE, log) {
 
 		var prom;
 		var w = 0;
@@ -180,8 +180,7 @@
 			if (menuService.playing) {
 				animationStep();
 			}
-			timerSpd = Math.floor(parseInt(SPEED.MAX - SPEED.MIN - menuService.animationSpeed,10)) + 1;
-			prom = $timeout(animationTimer,timerSpd);
+			prom = $timeout(animationTimer,parseInt(menuService.animationSpeed,10));
 		}
 
 		function animationStep() {
