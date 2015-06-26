@@ -26,21 +26,26 @@
 	sliderController.$inject = ['$scope', '$element', '$window'];
 	function sliderController($scope, $element, $window) {
 
-		$scope.thumbWidth = 8;
-
 		var lastValue = -1;
 		var runCallBack = angular.isDefined($scope.callBack);
 		var toFixedValue = angular.isDefined($scope.fixedValue);
 		var minValue = angular.isDefined($scope.minValue) ? $scope.minValue : 0;
 		var maxValue = angular.isDefined($scope.maxValue) ? $scope.maxValue : 1;
-		if (minValue >= maxValue) {
+		if (minValue === maxValue) {
 			minValue = 0;
 			maxValue = 1;
+		}
+		var minIsBigger = minValue > maxValue;
+		if (minIsBigger) {
+			var x = maxValue;
+			maxValue = minValue;
+			minValue = x;
 		}
 		if ($scope.sliderValue < minValue) {$scope.sliderValue = minValue}
 		if ($scope.sliderValue > maxValue) {$scope.sliderValue = maxValue}
 		var originalSliderValue = $scope.sliderValue;
 
+		$scope.thumbWidth = 8;
 		$scope.getWidth = getWidth;
 		$scope.getLeftAdjust = getLeftAdjust;
 		$scope.getOriginalLeftPos = getOriginalLeftPos;
@@ -56,9 +61,11 @@
 		function getLeftAdjust() {
 			return $element[0].getBoundingClientRect().left + ($scope.thumbWidth/2)
 		}
+
 		function getWidth() {
 			return $element[0].getBoundingClientRect().width - $scope.thumbWidth;
 		}
+
 		function getOriginalLeftPos() {
 			return (originalSliderValue-minValue) / (maxValue-minValue) * $scope.getWidth();
 		}
@@ -83,7 +90,9 @@
 				$scope.leftPos = $scope.getOriginalLeftPos();
 			}
 			else {
-				var newSlider = ($scope.leftPos / $scope.getWidth()) * (maxValue -  minValue) + minValue;
+				var newSlider = minIsBigger ?
+					($scope.leftPos / $scope.getWidth()) * (minValue -  maxValue) + maxValue :
+					($scope.leftPos / $scope.getWidth()) * (maxValue -  minValue) + minValue;
 				$scope.sliderValue = toFixedValue ? newSlider.toFixed($scope.fixedValue) : newSlider;
 			}
 			if (runCallBack) {
