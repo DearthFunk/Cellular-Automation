@@ -96,7 +96,7 @@
 			gridRecalculateSize();
 			animationRecalculateColors();
 			animationDraw();
-			log.addEntry(LOG_TYPE.GRID_RESIZE, cellsW+'-'+cellsH);
+			log.addEntry(LOG_TYPE.GRID_RESIZE, cellsW, cellsH);
 		}
 
 		////////////////////////////////////////////////////
@@ -158,7 +158,7 @@
 		function gridToggleCell(x,y, theArray, mouse) {
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
-			log.addEntry(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, (x-log.logX)+'.'+(y-log.logY));
+			log.addEntry(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, x-log.logX, y-log.logY);
 			for (var i = 0; i < surroundingCells.length; i++) {
 				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];

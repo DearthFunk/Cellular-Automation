@@ -44,7 +44,7 @@
 			var csvFile = '';
 			var logFileName = 'log.csv';
 			for (var i = 0; i < service.log.length; i++) {
-				csvFile += service.log[i] + '\r\n';
+				csvFile += service.log[i] + '|';
 			}
 			var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
 
