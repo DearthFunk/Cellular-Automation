@@ -21,7 +21,6 @@
 			colorTwo: '#0000FF',
 			animationSpeed: 80,
 			playing: false,
-			borders: false,
 			growthTypes:  [
 				{type: GROWTH_TYPES.TOGGLER,
 					name: 'TOGGLER',

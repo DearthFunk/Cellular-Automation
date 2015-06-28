@@ -196,10 +196,6 @@
 			ctx.beginPath();
 			ctx.fillStyle = color;
 			ctx.rect(cell.x, cell.y, cellSize, cellSize);
-			if (menuService.borders) {
-				ctx.lineWidth = 2;
-				ctx.stroke();
-			}
 			ctx.fill();
 			ctx.closePath();
 		}
