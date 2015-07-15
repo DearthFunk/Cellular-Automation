@@ -1,0 +1,30 @@
+@darkGrey: #444444;
+div.cellActivatorContainer {
+	display: inline-block;
+	width: 66px;
+	border: 1px solid @menuGrey;
+	padding: 2px;
+	margin: 5px;
+	> div.cell {
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+		box-sizing: border-box;
+		margin: 1px;
+		text-align: center;
+		&.enabledCell {
+			background-color: @darkGrey;
+			border: 1px solid #ffffff;;
+			cursor: pointer;
+			&:hover {
+				background-color: @menuBlue;
+				color: #000000;
+			}
+		}
+
+		&.activeCell {
+			background-color: @menuGreen;
+			color: #000000;
+		}
+	}
+}
