@@ -1,5 +1,5 @@
 #Cellular Automation
-DEMO: http://cellularautomation.dearthfunk.com
+DEMO: http://dearthfunk.github.io/Cellular-Automation/
 
 For more information on what cellular automation is, please check out the wiki https://en.wikipedia.org/wiki/Cellular_automaton
 
