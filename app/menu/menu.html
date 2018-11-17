@@ -1,7 +1,4 @@
 <div class="menuContainer verticalScrollBarLight" data-ng-style="{width: menuSize + 'px'}">
-	<div class="section genLog">
-		<div class="genLogButton" data-ng-click="log.generateCSV()">GET LOG</div>
-	</div>
 	<div class="section playPause">
 		<div class="speedControls">
 			<div class="speed">{{editingSpeed ? menuService.animationSpeed : 'SPD'}}</div>
@@ -22,12 +19,6 @@
 		</div>
 	</div>
 	<div class="section colorPickers">
-		<div class="editingLogPosition"
-		     data-ng-class="{active: log.editingPos}"
-		     data-ng-click="log.editingPos = !log.editingPos">
-			EDIT LOG POS
-		</div>
-		<input class="logPos" data-ng-change="log.recalculateColor()" type="color" data-ng-model="log.color">
 		GRID COLORS<br>
 		<input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne"><input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
 	</div>

@@ -6,7 +6,6 @@
 			'boardModule',
 			'menuModule',
 			'genColorsServiceModule',
-			'menuServiceModule',
-			'logServiceModule'
+			'menuServiceModule'
 		])
 })();

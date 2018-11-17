@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'GROWTH_TYPES', 'LOG_TYPE', 'log'];
-	function boardController($scope, $element, $window, $timeout, genColors, menuService, GROWTH_TYPES, LOG_TYPE, log) {
+	boardController.$inject = ['$scope', '$element', '$window', '$timeout', 'genColors', 'menuService', 'GROWTH_TYPES'];
+	function boardController($scope, $element, $window, $timeout, genColors, menuService, GROWTH_TYPES) {
 
 		var prom;
 		var w = 0;
@@ -72,13 +72,7 @@
 			if((x != lastX || y != lastY) && x > 0 && y > 0 && x <= cellsW && y <= cellsH) {
 				lastX = x;
 				lastY = y;
-				if (log.editingPos) {
-					log.logX = x;
-					log.logY = y;
-				}
-				else {
-					gridToggleCell(x,y, grid, true);
-				}
+				gridToggleCell(x,y, grid, true);
 				animationDraw();
 			}
 		}
@@ -96,13 +90,11 @@
 			gridRecalculateSize();
 			animationRecalculateColors();
 			animationDraw();
-			log.addEntry(LOG_TYPE.GRID_RESIZE, cellsW, cellsH);
 		}
 
 		////////////////////////////////////////////////////
 
 		function gridClear() {
-			log.addEntry(LOG_TYPE.CLEAR);
 			for (var y = 0; y < grid.length; y++) {
 				for (var x = 0; x < grid[y].length; x++) {
 					grid[y][x].active = false;
@@ -158,7 +150,6 @@
 		function gridToggleCell(x,y, theArray, mouse) {
 			var cell = theArray[y][x];
 			cell.active = !cell.active;
-			log.addEntry(mouse ? LOG_TYPE.MOUSE_TOGGLE : LOG_TYPE.CELL_TOGGLE, x-log.logX, y-log.logY);
 			for (var i = 0; i < surroundingCells.length; i++) {
 				if (i !== 4) { // 4 is the center cell, so it is skipped
 					var surroundingCell = theArray[y + surroundingCells[i].y][x + surroundingCells[i].x];
@@ -205,10 +196,7 @@
 			for (var y = 1; y < grid.length - 1; y++) {
 				for (var x = 1; x < grid[y].length - 1; x++) {
 					var cell = grid[y][x];
-					if (x === log.logX && y === log.logY) {
-						animationDrawCell(cell, cell.active ? log.color : log.colorActive);
-					}
-					else if (cell.active) {
+					if (cell.active) {
 						animationDrawCell(cell, gridColorArray[x]);
 					}
 				}
