@@ -64,9 +64,9 @@
 		$scope.menuSize = 220;
 
 		//set initial activeGrowthType
-		menuService.activeGrowthType = menuService.growthTypes[1];
-		menuService.activeGrowthType.stayAlive = $scope.RULE_TEMPLATES[0].stayAlive;
-		menuService.activeGrowthType.birth = $scope.RULE_TEMPLATES[0].birth;
+		menuService.activeGrowthType = angular.copy(menuService.growthTypes[1]);
+		menuService.activeGrowthType.stayAlive =angular.copy( $scope.RULE_TEMPLATES[0].stayAlive);
+		menuService.activeGrowthType.birth = angular.copy($scope.RULE_TEMPLATES[0].birth);
 
 		///////////////////////////////////////////////////
 
