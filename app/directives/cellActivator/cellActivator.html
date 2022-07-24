@@ -1,0 +1,10 @@
+<div class="cellActivatorContainer">
+	<div class="cell"
+	     data-ng-click="selectCell(cell)"
+	     data-ng-repeat="cell in allCells"
+	     data-ng-class="{
+	        'enabledCell': cells.indexOf(cell) > -1,
+	        'activeCell': cells.indexOf(cell) > -1 && returnArray.indexOf(cell) > -1}">
+		{{showLabel ? cell : ''}}
+	</div>
+</div>

@@ -1,0 +1,34 @@
+<html data-ng-app="cellularAutomation">
+<head>
+	<title>Cellular Automation!</title>
+
+	<!-- LIBRARIES -->
+	<script type="text/javascript" src="lib/angular.js"></script>
+
+	<!-- MAIN -->
+	<script type="text/javascript" src="app/app.controller.js"></script>
+
+	<!-- DIRECTIVES -->
+	<script type="text/javascript" src="app/directives/cellActivator/cellActivator.directive.js"></script>
+	<script type="text/javascript" src="app/directives/slider/slider.directive.js"></script>
+
+	<!-- SERVICES -->
+	<script type="text/javascript" src="app/services/genColors.service.js"></script>
+	<script type="text/javascript" src="app/services/menu.service.js"></script>
+
+	<!-- APP -->
+	<script type="text/javascript" src="app/board/board.directive.js"></script>
+	<script type="text/javascript" src="app/menu/menu.directive.js"></script>
+
+
+	<!-- STYLE -->
+	<link rel="stylesheet/less" href="app/app.less">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="lib/less.js"></script>
+
+</head>
+<body>
+	<canvas board-directive></canvas>
+	<div menu></div>
+</body>
+</html>

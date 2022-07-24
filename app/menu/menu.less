@@ -1,0 +1,165 @@
+@menuBlue: #5050FF;
+@borderColor: #FFFFFF;
+@menuGrey: #999999;
+@menuGreen: #50FF50;
+
+div.menuContainer {
+	&.verticalScrollBarLight::-webkit-scrollbar {
+		width: 12px;
+		height: 12px;
+	}
+	&.verticalScrollBarLight::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+	}
+	&.verticalScrollBarLight::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		-webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.7);
+	}
+	&.verticalScrollBarLight::-webkit-scrollbar-corner {
+		background-color: rgba(0, 0, 0, 0);
+	}
+	color: #FFFFFF;
+	position: absolute;
+	right: -1px;
+	padding: 0 10px;
+	border-left: 3px solid white;
+	background-color: rgba(0, 0, 0, 0.8);
+	height: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	z-index: 2;
+	overflow-y: scroll;
+	> div.section {
+		border-top: 1px solid @borderColor;
+		padding: 10px 5px;
+		margin-bottom: -1px;
+		&:first-child {
+			border-top: none;
+		}
+	}
+	div.options {
+		font-size: 16px;
+		input[type='checkbox'] {
+
+		}
+	}
+	div.playPause {
+		div.speedControls {
+			display: table;
+			width: 100%;
+			>div.speed {
+				display: table-cell;
+				width: 40px;
+				vertical-align: top;
+				font-size: 18px;			}
+		}
+		> div.playPauseButtons {
+			display: table;
+			width: 100%;
+			border: 2px solid #FFFFFF;
+			border-radius: 5px;
+			margin-top: 6px;
+			text-align: center;
+			> div {
+				display: table-cell;
+				cursor: pointer;
+				padding: 5px;
+				font-size: 16px;
+				font-weight: bold;
+				&:hover {
+					background-color: @menuBlue;
+				}
+				&.clear {
+					width: 30px;
+				}
+				&.play {
+					border-left: 2px solid #FFFFFF;
+					border-right: 2px solid #FFFFFF;
+				}
+				&.step {
+					width: 30px;
+				}
+			}
+		}
+	}
+	div.colorPickers {
+		text-align: center;
+		font-size: 16px;
+		> input {
+			-webkit-appearance: none;
+			border: none;
+			border-collapse: collapse;
+			background-color: rgba(0, 0, 0, 0);
+			cursor: pointer;
+			padding: 0;
+			width: 50%;
+			vertical-align: top;
+			&:hover {
+				border: 1px solid @menuBlue;
+			}
+		}
+		> input::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+		> input::-webkit-color-swatch {
+			border: none;
+		}
+	}
+	div.growthTypes {
+		text-align: center;
+		> div.growthTypeTitle {
+			font-weight: bold;
+			margin-bottom: 5px;
+			font-size: 19px;
+		}
+		> div.growthType {
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			cursor: pointer;
+			margin: 0 2px;
+			border: 1px solid #FFFFFF;
+			&:hover {
+				border-color: @menuBlue;
+			}
+			&.active {
+				background-color: @menuGreen;
+			}
+		}
+	}
+	div.cellToggles {
+		text-align: center;
+	}
+	div.rules {
+		> div.half {
+			width: 50%;
+			display: inline-block;
+			> div.title {
+				text-align: center;
+			}
+			&.second {
+				margin-bottom: 10px;
+			}
+		}
+		> div.ruleType {
+			font-size: 12px;
+			cursor: pointer;
+			position: relative;
+			height: 16px;
+			&:hover {
+				background-color: @menuGrey;
+			}
+			> div {
+				display: inline-block;
+				position: absolute;
+				&.left {
+					left: 0;
+				}
+				&.right {
+					right: 0;
+				}
+			}
+		}
+	}
+}

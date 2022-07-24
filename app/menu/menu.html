@@ -1,0 +1,79 @@
+<div class="menuContainer verticalScrollBarLight" data-ng-style="{width: menuSize + 'px'}">
+	<div class="section playPause">
+		<div class="speedControls">
+			<div class="speed">{{editingSpeed ? menuService.animationSpeed : 'SPD'}}</div>
+			<div slider
+			     class="slider"
+			     data-title="'SPD'"
+			     data-currently-moving="editingSpeed"
+			     data-fixed-value="0"
+			     data-slider-value="menuService.animationSpeed"
+			     data-min-value="1"
+			     data-max-value="200">
+			</div>
+		</div>
+		<div class="playPauseButtons">
+			<div class="clear" data-ng-click="clearGrid($event)">CLR</div>
+			<div class="play" data-ng-click="menuService.playing = !menuService.playing">{{menuService.playing?'PAUSE':'PLAY'}}</div>
+			<div class="step" data-ng-click="drawStep($event)">>></div>
+		</div>
+	</div>
+	<div class="section colorPickers">
+		GRID COLORS<br>
+		<input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorOne"><input type="color" data-ng-change="recalculateColors()" data-ng-model="menuService.colorTwo">
+	</div>
+	<div class="section growthTypes">
+		<div class="growthTypeTitle">{{menuService.activeGrowthType.name}}</div>
+		<div class="growthType"
+		     data-ng-repeat="item in menuService.growthTypes"
+		     data-ng-class="{active: item.type == menuService.activeGrowthType.type}"
+		     data-ng-click="menuService.activeGrowthType = item">
+		</div>
+	</div>
+
+	<!---------------------------------------------------------------------->
+	<div class="section cellToggles" data-ng-if="menuService.activeGrowthType.type == GROWTH_TYPES.TOGGLER">
+		<div cell-activator
+		     data-show-label="false"
+		     data-cells="[1,2,3,4,6,7,8,9]"
+		     data-return-array="menuService.activeGrowthType.activatedCells">
+		</div>
+	</div>
+
+	<div class="section rules" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.LIFE_AND_DEATH">
+		<div class="half">
+			<div class="title">STAY ALIVE</div>
+			<div cell-activator
+			     data-show-label="true"
+			     data-cells="[1,2,3,4,5,6,7,8,9]"
+			     data-return-array="menuService.activeGrowthType.stayAlive">
+			</div>
+		</div><div class="half second">
+			<div class="title">BIRTH</div>
+			<div cell-activator
+			     data-show-label="true"
+			     data-cells="[1,2,3,4,5,6,7,8,9]"
+			     data-return-array="menuService.activeGrowthType.birth">
+			</div>
+		</div>
+		<div class="ruleType"
+		     data-ng-repeat="rule in RULE_TEMPLATES"
+		     data-ng-click="loadRule(rule)">
+			<div class="left">{{rule.name}}</div>
+			<div class="right">{{rule.stayAlive}}:{{rule.birth}}</div>
+		</div>
+	</div>
+
+	<div class="section" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.NEWTYPE3">
+		Not Yet Implemented
+	</div>
+	<div class="section" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.NEWTYPE4">
+		Not Yet Implemented
+	</div>
+	<div class="section" data-ng-show="menuService.activeGrowthType.type == GROWTH_TYPES.NEWTYPE5">
+		Not Yet Implemented
+	</div>
+
+
+
+</div>
